@@ -1,9 +1,17 @@
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import axios from "axios";
+import { toast } from "react-toastify";
+
+const N1_113 = "192.168.0.14";
+
 const App = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
@@ -14,14 +22,41 @@ const App = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(`Email: ${email}, Password: ${password}`);
-    navigate("/Mainpage");
+
+    try {
+      const response = await axios.post(`http://${N1_113}:4000/login`, {
+        email,
+        password,
+      });
+
+      if (response.data.status === "ok") {
+        toast.success(`${response.data.nickname}님, 반갑습니다!`, {
+          autoClose: 500,
+        });
+
+        setTimeout(() => {
+          navigate("/Mainpage");
+        }, 1000);
+      } else {
+        toast.error(response.data.message, {
+          autoClose: 500,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("아이디와 비밀번호를 확인해주세요.");
+    }
+  };
+
+  const handleClick = (path) => {
+    navigate(path);
   };
 
   return (
     <div className="container">
+      <ToastContainer />
       <h1>너 T야?</h1>
       <form onSubmit={handleSubmit}>
         <div className="input-group">
@@ -44,7 +79,13 @@ const App = () => {
         </div>
         <button type="submit">로그인</button>
       </form>
-      <button className="register-btn">회원 가입</button>
+      <button
+        className="register-btn"
+        type="submit"
+        onClick={() => handleClick("/signup")}
+      >
+        회원 가입
+      </button>
     </div>
   );
 };

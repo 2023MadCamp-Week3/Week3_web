@@ -6,6 +6,7 @@ import Test from "./Test";
 import Board from "./Board";
 import Questions from "./Questions";
 import Profile from "./Profile";
+import Signup from "./Signup";
 
 const Root = () => {
   return (
@@ -17,6 +18,7 @@ const Root = () => {
         <Route path="/board" element={<Board />} />
         <Route path="/questions" element={<Questions />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </BrowserRouter>
   );

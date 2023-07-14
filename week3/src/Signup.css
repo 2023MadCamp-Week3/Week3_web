@@ -1,0 +1,26 @@
+.mbti-choice {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.mbti-option {
+  flex: 1;
+  margin: 0 5px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #c0c0c0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: white;
+  font-weight: bold;
+}
+
+.mbti-option:hover {
+  background-color: #add8e6;
+}
+
+.mbti-option.selected {
+  background-color: #87cefa;
+}
