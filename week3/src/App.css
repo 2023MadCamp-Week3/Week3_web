@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+label {
+  margin: 10px 0;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #6c63ff;
+  color: white;
+  cursor: pointer;
+}
+
+.register-btn {
+  background-color: #f3722c;
+}
