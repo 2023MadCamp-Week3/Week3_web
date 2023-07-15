@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -6,13 +6,20 @@ import "./App.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const N1_113 = "192.168.0.14";
+const IPV4 = "143.248.195.86";
 
 const App = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [userData, setUserData] = useState(null);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userData) {
+      navigate("/Mainpage", { state: { user: userData } });
+    }
+  }, [userData, navigate]);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -26,18 +33,19 @@ const App = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`http://${N1_113}:4000/login`, {
+      const response = await axios.post(`http://${IPV4}:4000/login`, {
         email,
         password,
       });
 
       if (response.data.status === "ok") {
+        setUserData(response.data);
         toast.success(`${response.data.nickname}님, 반갑습니다!`, {
           autoClose: 500,
         });
 
         setTimeout(() => {
-          navigate("/Mainpage");
+          navigate("/Mainpage", { state: { user: userData } });
         }, 1000);
       } else {
         toast.error(response.data.message, {

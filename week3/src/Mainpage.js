@@ -1,12 +1,16 @@
 import React from "react";
 import "./Mainpage.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Mainpage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const userData = location.state.user;
+  console.log(userData);
+  console.log("aaa");
 
   const handleClick = (path) => {
-    navigate(path);
+    navigate(path, { state: { user: userData } });
   };
 
   return (
