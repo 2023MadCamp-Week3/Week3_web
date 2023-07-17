@@ -4,8 +4,6 @@ import { UserDataContext } from "./UserDataContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const IPV4 = "10.10.22.236";
-
 const Test = () => {
   const navigate = useNavigate();
   const [userm1, setUserm1] = useState("m1");
@@ -90,7 +88,7 @@ const Test = () => {
         );
 
         if (isConfirmed) {
-          axios.put(`http://${IPV4}:443/user/${userData.nickname}`, {
+          axios.put(`${process.env.server_uri}/user/${userData.nickname}`, {
             m1: testm1,
             m2: testm2,
             m3: testm3,
@@ -117,7 +115,7 @@ const Test = () => {
   const fetchUserMBTI = useCallback(async () => {
     try {
       const response = await axios.get(
-        `http://${IPV4}:443/user/${userData.nickname}`
+        `${process.env.server_uri}/user/${userData.nickname}`
       );
       setUserm1(response.data.m1);
       console.log(userm1);

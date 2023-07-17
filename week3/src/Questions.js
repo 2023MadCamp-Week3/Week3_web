@@ -6,8 +6,6 @@ import { format } from "date-fns";
 import { UserDataContext } from "./UserDataContext";
 import { useNavigate } from "react-router-dom";
 
-const IPV4 = "172.10.5.129";
-
 const Questions = () => {
   const navigate = useNavigate();
   const goToMain = () => {
@@ -42,7 +40,7 @@ const Questions = () => {
 
   const handleWriteComplete = async () => {
     try {
-      await axios.post(`http://${IPV4}:443/questions`, {
+      await axios.post(`${process.env.server_uri}/questions`, {
         user_id: userId,
         post_time: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
         ...newQuestion,
@@ -60,7 +58,7 @@ const Questions = () => {
   const fetchUserId = useCallback(async () => {
     try {
       const response = await axios.get(
-        `http://${IPV4}:443/user/${userData.nickname}`
+        `${process.env.server_uri}/user/${userData.nickname}`
       );
       setUserId(response.data.userId);
       console.log(userId);
@@ -75,7 +73,7 @@ const Questions = () => {
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      const response = await axios.get(`http://${IPV4}:443/questions`);
+      const response = await axios.get(`${process.env.server_uri}/questions`);
       setQuestions(response.data);
     };
 
@@ -86,7 +84,7 @@ const Questions = () => {
     if (!selectedQuestion) return;
 
     const response = await axios.get(
-      `http://${IPV4}:443/questions/${selectedQuestion.id}/votes`
+      `${process.env.server_uri}/questions/${selectedQuestion.id}/votes`
     );
     setVoteCounts(response.data);
   };
@@ -99,11 +97,11 @@ const Questions = () => {
   const handleShow = async (question) => {
     setSelectedQuestion(question);
     const response = await axios.get(
-      `http://${IPV4}:443/questions/${question.id}/votes`
+      `${process.env.server_uri}/questions/${question.id}/votes`
     );
     setVoteCounts(response.data);
     const voteResponse = await axios.get(
-      `http://${IPV4}:443/questions/${question.id}/vote/${userId}`
+      `${process.env.server_uri}/questions/${question.id}/vote/${userId}`
     );
 
     setUserVote(voteResponse.data.vote || null);
@@ -151,7 +149,7 @@ const Questions = () => {
 
   const vote = async (voteValue) => {
     try {
-      await axios.post(`http://${IPV4}:443/vote`, {
+      await axios.post(`${process.env.server_uri}/vote`, {
         question_id: selectedQuestion.id,
         user_id: userId,
         vote: voteValue === "1번" ? 1 : 2,

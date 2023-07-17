@@ -1,12 +1,14 @@
 const express = require("express");
 const app = express();
-const pool = require("./db").promise(); // Add promise()
+const pool = require("./db").promise();
 const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config();
 
 app.use(cors());
-app.use(express.json()); // Enable JSON request body parsing
+app.use(express.json());
 
-app.listen(4000, "0.0.0.0", () => {
+app.listen(process.env.PORT || 4000, "0.0.0.0", () => {
   console.log("Server has started on port 4000");
 });
 

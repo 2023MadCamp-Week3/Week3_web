@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Modal from "react-modal";
 
-const IPV4 = "172.10.5.129";
-
 Modal.setAppElement("#root");
 
 const Board = () => {
@@ -37,7 +35,9 @@ const Board = () => {
   const openModal = async (mbti) => {
     setSelectedMBTI(mbti);
     try {
-      const response = await axios.get(`http://${IPV4}:443/boards/${mbti}`);
+      const response = await axios.get(
+        `${process.env.server_uri}/boards/${mbti}`
+      );
       setPosts(response.data);
     } catch (error) {
       console.error(error);
