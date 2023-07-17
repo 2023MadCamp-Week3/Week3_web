@@ -16,6 +16,7 @@ form {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-top: 15px;
 }
 
 label {
@@ -30,6 +31,10 @@ button {
   background-color: #6c63ff;
   color: white;
   cursor: pointer;
+}
+
+.buttt {
+  margin-top: 20px;
 }
 
 .register-btn {

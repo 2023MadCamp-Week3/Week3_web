@@ -55,9 +55,8 @@ app.post("/login", async (req, res) => {
 app.get("/questions", async (req, res) => {
   try {
     const [questions] = await pool.query(
-      "SELECT q.id, q.title, q.content, q.post_time, u.nickname as user_nickname FROM questions q INNER JOIN users u ON q.user_id = u.id"
+      "SELECT q.id, q.title, q.content, q.post_time, q.A1, q.A2, u.nickname as user_nickname FROM questions q INNER JOIN users u ON q.user_id = u.id"
     );
-
     res.json(questions);
   } catch (err) {
     console.error(err.message);
@@ -143,7 +142,7 @@ app.get("/questions/:questionId/votes", async (req, res) => {
     votes.forEach((vote) => {
       const traits = [vote.m1, vote.m2, vote.m3, vote.m4];
       traits.forEach((trait) => {
-        if (vote.vote === "yes") voteCounts[trait].yes += 1;
+        if (vote.vote === 1) voteCounts[trait].yes += 1;
         else voteCounts[trait].no += 1;
       });
     });
@@ -151,5 +150,72 @@ app.get("/questions/:questionId/votes", async (req, res) => {
     res.json(voteCounts);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+});
+
+//닉네임으로 user_id 가져오기
+app.get("/user/:nickname", async (req, res) => {
+  try {
+    const nickname = req.params.nickname;
+    const [users] = await pool.query(
+      "SELECT id FROM users WHERE nickname = ?",
+      [nickname]
+    );
+
+    if (users.length > 0) {
+      res.json({ userId: users[0].id });
+    } else {
+      res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+//새로운 질문 작성
+app.post("/questions", async (req, res) => {
+  try {
+    const { user_id, post_time, content, title } = req.body;
+
+    if (!(user_id && post_time && content && title)) {
+      return res.status(400).json({
+        message: "모든 내용을 작성해주세요.",
+      });
+    }
+
+    const [result] = await pool.query(
+      "INSERT INTO questions (user_id, post_time, content, title) VALUES (?, ?, ?, ?)",
+      [user_id, post_time, content, title]
+    );
+
+    res.json({
+      message: "Question successfully posted!",
+      questionId: result.insertId,
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+app.get("/questions/:questionId/vote/:userId", async (req, res) => {
+  try {
+    const { questionId, userId } = req.params;
+
+    const [votes] = await pool.query(
+      "SELECT * FROM votes WHERE question_id = ? AND user_id = ?",
+      [questionId, userId]
+    );
+
+    if (votes.length > 0) {
+      res.json(votes[0]); // Display the vote (assuming one vote per user per question)
+    } else {
+      // Instead of sending a 404, send a response indicating no vote
+      res.json({ vote: null });
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
   }
 });

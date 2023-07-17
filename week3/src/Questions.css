@@ -1,0 +1,109 @@
+body {
+  font-family: "Roboto", sans-serif; /* Consistent font */
+  color: #333; /* Neutral, readable text color */
+  background-color: #f4f4f4; /* Soft background for contrast */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.questions {
+  background-color: #ffffff; /* Differentiates each question visually */
+  border-radius: 5px; /* Soft edges */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Very subtle shadow for depth */
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-bottom: 10px; /* Space out elements vertically */
+}
+
+p {
+  line-height: 1.6; /* More readable line spacing */
+}
+
+.Button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.Button:active {
+  background-color: #0056b3;
+}
+
+.bt1 {
+  background-color: #d9ffd9 !important;
+  width: 500px !important;
+  margin-bottom: 10px;
+}
+
+.bt1:active {
+  background-color: #008000 !important;
+}
+
+.bt2 {
+  background-color: #ffd4db !important;
+  width: 500px !important;
+  margin-bottom: 10px;
+}
+
+.bt2:active {
+  background-color: #ff0000 !important;
+}
+
+.voted {
+  background-color: #008000 !important;
+}
+
+.bt2.voted {
+  background-color: #ff0000 !important;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.Modal {
+  padding: 20px;
+}
+
+.Modal.Body {
+  margin-top: 20px;
+}
+
+.Modal.Body label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.Modal.Body input[type="text"],
+.Modal.Body textarea {
+  display: block;
+  width: 100%; /* Use full width */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.Modal.Body textarea {
+  height: 150px; /* Give enough space to write */
+}
+
+.Modal.Footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Modal.Footer .Button {
+  margin-left: 10px;
+}
