@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 import { UserDataContext } from "./UserDataContext";
 import axios from "axios";
-const IPV4 = "143.248.195.86";
+
+const IPV4 = "172.10.5.129";
 
 const Profile = () => {
   const [userm1, setUserm1] = useState("");
@@ -30,7 +31,7 @@ const Profile = () => {
   const fetchUserMBTI = useCallback(async () => {
     try {
       const response = await axios.get(
-        `http://${IPV4}:4000/user/${userData.nickname}`
+        `http://${IPV4}:443/user/${userData.nickname}`
       );
       setUserm1(response.data.m1);
       setUserm2(response.data.m2);

@@ -3,7 +3,8 @@ import "./Test.css";
 import { UserDataContext } from "./UserDataContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-const IPV4 = "143.248.195.86";
+
+const IPV4 = "10.10.22.236";
 
 const Test = () => {
   const navigate = useNavigate();
@@ -89,7 +90,7 @@ const Test = () => {
         );
 
         if (isConfirmed) {
-          axios.put(`http://${IPV4}:4000/user/${userData.nickname}`, {
+          axios.put(`http://${IPV4}:443/user/${userData.nickname}`, {
             m1: testm1,
             m2: testm2,
             m3: testm3,
@@ -116,7 +117,7 @@ const Test = () => {
   const fetchUserMBTI = useCallback(async () => {
     try {
       const response = await axios.get(
-        `http://${IPV4}:4000/user/${userData.nickname}`
+        `http://${IPV4}:443/user/${userData.nickname}`
       );
       setUserm1(response.data.m1);
       console.log(userm1);

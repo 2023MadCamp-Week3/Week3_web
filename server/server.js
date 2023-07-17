@@ -249,17 +249,15 @@ app.put("/user/:nickname", async (req, res) => {
 });
 
 // MBTI별 게시판 내용 가져오기
-app.get("/boards/:mbti", (req, res) => {
-  db.query(
-    "SELECT * FROM boards WHERE mbti = ?",
-    [req.params.mbti],
-    (error, results) => {
-      if (error) {
-        console.error(error);
-        res.status(500).json({ error });
-      } else {
-        res.json(results);
-      }
-    }
-  );
+app.get("/boards/:mbti", async (req, res) => {
+  try {
+    const { mbti } = req.params;
+    const [boards] = await pool.query("SELECT * FROM boards WHERE mbti = ?", [
+      mbti,
+    ]);
+    res.json(boards);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Server Error" });
+  }
 });

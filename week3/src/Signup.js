@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-const IPV4 = "143.248.195.86";
+
+const IPV4 = "172.10.5.129";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -52,7 +53,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       const userData = { name, nickname, email, password, ...mbti };
-      await axios.post(`http://${IPV4}:4000/signup`, userData);
+      await axios.post(`http://${IPV4}:443/signup`, userData);
       navigate("/");
       toast("회원 가입이 완료되었습니s다!", {
         autoClose: 500,

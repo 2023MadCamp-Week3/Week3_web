@@ -4,21 +4,22 @@ import { UserDataContext } from "./UserDataContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Modal from "react-modal";
-const IPV4 = "143.248.195.86";
+
+const IPV4 = "172.10.5.129";
 
 Modal.setAppElement("#root");
 
 const Board = () => {
   const navigate = useNavigate();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [postModalIsOpen, setPostModalIsOpen] = useState(false);
   const [posts, setPosts] = useState([]);
   const [selectedMBTI, setSelectedMBTI] = useState("");
+  const [selectedPostId, setSelectedPostId] = useState(null);
 
   const goToMain = () => {
     navigate("/Mainpage");
   };
-
-  /////
 
   const { userData, setUserData } = useContext(UserDataContext);
 
@@ -33,12 +34,10 @@ const Board = () => {
     localStorage.setItem("userData", JSON.stringify(userData));
   }, [userData]);
 
-  /////
-
   const openModal = async (mbti) => {
     setSelectedMBTI(mbti);
     try {
-      const response = await axios.get(`http://${IPV4}:4000/boards/${mbti}`);
+      const response = await axios.get(`http://${IPV4}:443/boards/${mbti}`);
       setPosts(response.data);
     } catch (error) {
       console.error(error);
@@ -49,6 +48,17 @@ const Board = () => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+  const openPostModal = (postId) => {
+    setSelectedPostId(postId);
+    setPostModalIsOpen(true);
+  };
+
+  const closePostModal = () => {
+    setPostModalIsOpen(false);
+  };
+
+  const selectedPost = posts.find((post) => post.id === selectedPostId);
 
   return (
     <div className="container">
@@ -76,11 +86,25 @@ const Board = () => {
         <h2>{selectedMBTI} 게시판</h2>
         {posts.map((post) => (
           <div key={post.id}>
-            <h3>{post.title}</h3>
-            <p>{post.content}</p>
+            <button onClick={() => openPostModal(post.id)}>{post.title}</button>
           </div>
         ))}
         <button onClick={closeModal}>close</button>
+      </Modal>
+
+      <Modal
+        isOpen={postModalIsOpen}
+        onRequestClose={closePostModal}
+        contentLabel="Post Modal"
+      >
+        {selectedPost && (
+          <>
+            <h2>{selectedPost.title}</h2>
+            <p>{selectedPost.content}</p>
+            <p>Written by: {selectedPost.user_id}</p>
+          </>
+        )}
+        <button onClick={closePostModal}>닫기</button>
       </Modal>
     </div>
   );
