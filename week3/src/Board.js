@@ -36,7 +36,7 @@ const Board = () => {
     setSelectedMBTI(mbti);
     try {
       const response = await axios.get(
-        `${process.env.server_uri}/boards/${mbti}`
+        `${process.env.REACT_APP_server_uri}/boards/${mbti}`
       );
       setPosts(response.data);
     } catch (error) {

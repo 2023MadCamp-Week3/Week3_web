@@ -35,10 +35,13 @@ const App = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${process.env.server_uri}/login`, {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_server_uri}/login`,
+        {
+          email,
+          password,
+        }
+      );
 
       if (response.data.status === "ok") {
         setUserData(response.data);

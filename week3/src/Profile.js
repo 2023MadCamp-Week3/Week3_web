@@ -29,7 +29,7 @@ const Profile = () => {
   const fetchUserMBTI = useCallback(async () => {
     try {
       const response = await axios.get(
-        `${process.env.server_uri}/user/${userData.nickname}`
+        `${process.env.REACT_APP_server_uri}/user/${userData.nickname}`
       );
       setUserm1(response.data.m1);
       setUserm2(response.data.m2);

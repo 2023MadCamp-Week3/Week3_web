@@ -88,12 +88,15 @@ const Test = () => {
         );
 
         if (isConfirmed) {
-          axios.put(`${process.env.server_uri}/user/${userData.nickname}`, {
-            m1: testm1,
-            m2: testm2,
-            m3: testm3,
-            m4: testm4,
-          });
+          axios.put(
+            `${process.env.REACT_APP_server_uri}/user/${userData.nickname}`,
+            {
+              m1: testm1,
+              m2: testm2,
+              m3: testm3,
+              m4: testm4,
+            }
+          );
         }
       }
     }
@@ -115,7 +118,7 @@ const Test = () => {
   const fetchUserMBTI = useCallback(async () => {
     try {
       const response = await axios.get(
-        `${process.env.server_uri}/user/${userData.nickname}`
+        `${process.env.REACT_APP_server_uri}/user/${userData.nickname}`
       );
       setUserm1(response.data.m1);
       console.log(userm1);
