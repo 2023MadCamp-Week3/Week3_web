@@ -153,17 +153,23 @@ app.get("/questions/:questionId/votes", async (req, res) => {
   }
 });
 
-//닉네임으로 user_id 가져오기
+//닉네임으로 user_id, m1, m2, m3, m4 가져오기
 app.get("/user/:nickname", async (req, res) => {
   try {
     const nickname = req.params.nickname;
     const [users] = await pool.query(
-      "SELECT id FROM users WHERE nickname = ?",
+      "SELECT id, m1, m2, m3, m4 FROM users WHERE nickname = ?",
       [nickname]
     );
 
     if (users.length > 0) {
-      res.json({ userId: users[0].id });
+      res.json({
+        userId: users[0].id,
+        m1: users[0].m1,
+        m2: users[0].m2,
+        m3: users[0].m3,
+        m4: users[0].m4,
+      });
     } else {
       res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
     }
@@ -199,6 +205,7 @@ app.post("/questions", async (req, res) => {
   }
 });
 
+//
 app.get("/questions/:questionId/vote/:userId", async (req, res) => {
   try {
     const { questionId, userId } = req.params;
@@ -209,13 +216,50 @@ app.get("/questions/:questionId/vote/:userId", async (req, res) => {
     );
 
     if (votes.length > 0) {
-      res.json(votes[0]); // Display the vote (assuming one vote per user per question)
+      res.json(votes[0]);
     } else {
-      // Instead of sending a 404, send a response indicating no vote
       res.json({ vote: null });
     }
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
   }
+});
+
+// MBTI 검사 결과로 자신의 MBTI를 수정
+app.put("/user/:nickname", async (req, res) => {
+  try {
+    const nickname = req.params.nickname;
+    const { m1, m2, m3, m4 } = req.body;
+
+    const [users] = await pool.query(
+      "UPDATE users SET m1 = ?, m2 = ?, m3 = ?, m4 = ? WHERE nickname = ?",
+      [m1, m2, m3, m4, nickname]
+    );
+
+    if (users.affectedRows > 0) {
+      res.json({ message: "MBTI 정보가 업데이트되었습니다." });
+    } else {
+      res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// MBTI별 게시판 내용 가져오기
+app.get("/boards/:mbti", (req, res) => {
+  db.query(
+    "SELECT * FROM boards WHERE mbti = ?",
+    [req.params.mbti],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ error });
+      } else {
+        res.json(results);
+      }
+    }
+  );
 });

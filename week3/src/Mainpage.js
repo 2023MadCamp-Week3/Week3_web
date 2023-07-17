@@ -6,10 +6,8 @@ import { UserDataContext } from "./UserDataContext";
 const Mainpage = () => {
   const navigate = useNavigate();
   const { userData } = useContext(UserDataContext);
-  console.log("Console Test 1");
   const handleClick = (path) => {
     console.log(userData);
-    console.log("Console Test 2");
     navigate(path, { state: { user: userData } });
   };
 

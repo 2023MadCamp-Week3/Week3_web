@@ -4,10 +4,15 @@ import { Modal, Button } from "react-bootstrap";
 import "./Questions.css";
 import { format } from "date-fns";
 import { UserDataContext } from "./UserDataContext";
+import { useNavigate } from "react-router-dom";
 
 const IPV4 = "143.248.195.86";
 
 const Questions = () => {
+  const navigate = useNavigate();
+  const goToMain = () => {
+    navigate("/Mainpage");
+  };
   const { userData } = useContext(UserDataContext);
   const [questions, setQuestions] = useState([]);
   const [userId, setUserId] = useState(1);
@@ -77,16 +82,16 @@ const Questions = () => {
     fetchQuestions();
   }, []);
 
+  const fetchVoteCounts = async () => {
+    if (!selectedQuestion) return;
+
+    const response = await axios.get(
+      `http://${IPV4}:4000/questions/${selectedQuestion.id}/votes`
+    );
+    setVoteCounts(response.data);
+  };
+
   useEffect(() => {
-    const fetchVoteCounts = async () => {
-      if (!selectedQuestion) return;
-
-      const response = await axios.get(
-        `http://${IPV4}:4000/questions/${selectedQuestion.id}/votes`
-      );
-      setVoteCounts(response.data);
-    };
-
     fetchVoteCounts();
   }, [selectedQuestion]);
 
@@ -153,6 +158,7 @@ const Questions = () => {
       });
       alert("투표가 완료되었습니다.");
       setUserVote(voteValue === "1번" ? 1 : 2);
+      fetchVoteCounts();
     } catch (err) {
       alert(err.response.data.message);
     }
@@ -160,6 +166,12 @@ const Questions = () => {
 
   return (
     <div className="container">
+      <button
+        style={{ position: "absolute", top: 50, right: 50, borderRadius: 15 }}
+        onClick={goToMain}
+      >
+        메인 페이지로 이동
+      </button>
       <h1
         style={{
           textAlign: "center",
