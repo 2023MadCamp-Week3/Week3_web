@@ -382,11 +382,11 @@ app.get("/boards/:userId", async (req, res) => {
 app.get("/comments_q/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
-    const [rows] = await pool.query(
+    const [rows2] = await pool.query(
       "SELECT * FROM comments_q WHERE user_id = ?",
       [userId]
     );
-    res.json(rows);
+    res.json(rows2);
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: "Server Error" });
@@ -397,11 +397,11 @@ app.get("/comments_q/:userId", async (req, res) => {
 app.get("/comments_b/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
-    const [rows] = await pool.query(
+    const [rows3] = await pool.query(
       "SELECT * FROM comments_b WHERE user_id = ?",
       [userId]
     );
-    res.json(rows);
+    res.json(rows3);
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: "Server Error" });
