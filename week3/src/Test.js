@@ -17,22 +17,8 @@ const Test = () => {
   const [vars, setVars] = useState(0);
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
-  /////
-
-  const { userData, setUserData } = useContext(UserDataContext);
-
-  useEffect(() => {
-    const storedUserData = localStorage.getItem("userData");
-    if (storedUserData) {
-      setUserData(JSON.parse(storedUserData));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("userData", JSON.stringify(userData));
-  }, [userData]);
-
-  /////
+  const { userData } = useContext(UserDataContext);
+  console.log(userData);
 
   const goToMain = () => {
     navigate("/Mainpage");
@@ -88,6 +74,11 @@ const Test = () => {
         );
 
         if (isConfirmed) {
+          console.log(userData.nickname);
+          console.log(testm1);
+          console.log(testm2);
+          console.log(testm3);
+          console.log(testm4);
           axios.put(
             `${process.env.REACT_APP_server_uri}/user/${userData.nickname}`,
             {
