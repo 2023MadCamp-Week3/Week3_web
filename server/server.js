@@ -319,7 +319,6 @@ app.get("/comments_q/:questionId", async (req, res) => {
 // 질문 댓글 생성하기
 app.post("/comments_q", async (req, res) => {
   const now = new Date();
-  now.setHours(now.getHours() + 9);
   const formattedDate = now.toISOString().slice(0, 19).replace("T", " ");
   try {
     const { questionId, userId, content } = req.body;
