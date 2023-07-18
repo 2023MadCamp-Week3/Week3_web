@@ -379,12 +379,12 @@ app.get("/boardsget/:nickname", async (req, res) => {
   }
 });
 
-// 게시물 또는 질문 가져오기
-app.get("/:postType/:postId", async (req, res) => {
+// 게시물 가져오기
+app.get("/boardsget/:postId", async (req, res) => {
   try {
-    const { postType, postId } = req.params;
+    const { postId } = req.params;
 
-    const [post] = await pool.query(`SELECT * FROM ${postType} WHERE id = ?`, [
+    const [post] = await pool.query(`SELECT * FROM boards WHERE id = ?`, [
       postId,
     ]);
 
@@ -395,17 +395,7 @@ app.get("/:postType/:postId", async (req, res) => {
   }
 });
 
-app.get("/boardsget/:id", async (req, res) => {
-  const id = req.params.id;
-  try {
-    const [post] = await pool.query("SELECT * FROM boards WHERE id = ?", [id]);
-    res.json(post[0]);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-});
-
+// 댓글 가져오기
 app.get("/commentsget/:board_id", async (req, res) => {
   const board_id = req.params.board_id;
   try {
