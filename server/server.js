@@ -287,7 +287,6 @@ app.get("/comments/:boardId", async (req, res) => {
 // 게시판 댓글 생성하기
 app.post("/comments", async (req, res) => {
   const now = new Date();
-  now.setHours(now.getHours() + 9);
   const formattedDate = now.toISOString().slice(0, 19).replace("T", " ");
   try {
     const { boardId, userId, content } = req.body;
