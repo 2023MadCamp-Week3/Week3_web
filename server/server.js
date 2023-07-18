@@ -334,3 +334,31 @@ app.post("/comments_q", async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 });
+
+app.post("/posts", async (req, res) => {
+  const now = new Date();
+  const formattedDate = now.toISOString().slice(0, 19).replace("T", " ");
+  try {
+    const { userId, title, content } = req.body;
+
+    if (!(userId && title && content)) {
+      return res.status(400).json({
+        message: "모든 내용을 작성해주세요.",
+      });
+    }
+
+    const post_time = new Date().toISOString().slice(0, 19).replace("T", " ");
+    const [result] = await pool.query(
+      "INSERT INTO posts (user_id, post_time, title, content) VALUES (?, ?, ?, ?)",
+      [userId, formattedDate, title, content]
+    );
+
+    res.json({
+      message: "Post successfully posted!",
+      postId: result.insertId,
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});

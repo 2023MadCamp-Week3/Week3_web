@@ -54,7 +54,7 @@ const Questions = () => {
     try {
       await axios.post(`${process.env.REACT_APP_server_uri}/comments_q`, {
         questionId: selectedQuestion.id,
-        userId,
+        userId: userData.nickname,
         content: newComment,
       });
 
