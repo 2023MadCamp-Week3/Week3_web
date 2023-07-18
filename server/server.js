@@ -474,9 +474,10 @@ app.get("/comments/:postType/:postId", async (req, res) => {
   try {
     const { postType, postId } = req.params;
 
-    const [comments] = await pool.query(`SELECT * FROM comments WHERE id = ?`, [
-      postId,
-    ]);
+    const [comments] = await pool.query(
+      `SELECT * FROM ${postType} WHERE id = ?`,
+      [postId]
+    );
 
     res.json(comments);
   } catch (err) {
