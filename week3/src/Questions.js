@@ -78,10 +78,7 @@ const Questions = () => {
 
   const handleWriteComplete = async () => {
     try {
-<<<<<<< HEAD
-=======
       console.log(newQuestion);
->>>>>>> a9c009b310c5e6a34362a13ad32d6542cafe0f1b
       await axios.post(`${process.env.REACT_APP_server_uri}/questions`, {
         user_id: userId,
         post_time: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
@@ -115,13 +112,9 @@ const Questions = () => {
 
   useEffect(() => {
     const fetchQuestions = async () => {
-<<<<<<< HEAD
-      const response = await axios.get(`${process.env.REACT_APP_server_uri}/questions`);
-=======
       const response = await axios.get(
         `${process.env.REACT_APP_server_uri}/questions`
       );
->>>>>>> a9c009b310c5e6a34362a13ad32d6542cafe0f1b
       setQuestions(response.data);
     };
 

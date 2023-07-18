@@ -5,11 +5,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Modal from "react-modal";
 import BoardModal from "./BoardModal";
-<<<<<<< HEAD
-
-const IPV4 = "172.10.5.129";
-=======
->>>>>>> a9c009b310c5e6a34362a13ad32d6542cafe0f1b
 
 Modal.setAppElement("#root");
 
@@ -74,13 +69,9 @@ const Board = () => {
   const openModal = async (mbti) => {
     setSelectedMBTI(mbti);
     try {
-<<<<<<< HEAD
-      const response = await axios.get(`${process.env.REACT_APP_server_uri}/boards/${mbti}`);
-=======
       const response = await axios.get(
         `${process.env.REACT_APP_server_uri}/boards/${mbti}`
       );
->>>>>>> a9c009b310c5e6a34362a13ad32d6542cafe0f1b
       setPosts(response.data);
     } catch (error) {
       console.error(error);
@@ -128,7 +119,6 @@ const Board = () => {
 
   return (
     <div className="board-container">
-<<<<<<< HEAD
 
       <div className="emptyline" style={{backgroundColor: "green"}}/>
 
@@ -151,68 +141,18 @@ const Board = () => {
       <div className="mbti black"></div>
       <div className="colorbox mbti yellow" onClick={() => openModal("F")}>F</div>
       <div className="colorbox mbti red" onClick={() => openModal("J")}>J</div>
-=======
-      <div className="emptyline" style={{ backgroundColor: "green" }} />
-
-      <div className="colorbox mbti white" onClick={goToMain}>
-        {"<<"} 메인 페이지
-      </div>
-      <div className="mbti black"></div>
-      <div className="colorbox mbti yellow" onClick={() => openModal("E")}>
-        E
-      </div>
-      <div className="mbti black"></div>
-      <div className="colorbox mbti blue">게시판</div>
-      <div className="colorbox mbti red" onClick={() => openModal("N")}>
-        N
-      </div>
-      <div className="mbti black"></div>
-      <div className="colorbox mbti green" onClick={() => openModal("T")}>
-        T
-      </div>
-      <div className="colorbox mbti lavender" onClick={() => openModal("P")}>
-        P
-      </div>
-      <div className="mbti black"></div>
-      <div className="colorbox mbti white" onClick={() => openModal("I")}>
-        I
-      </div>
-      <div className="colorbox mbti blue" onClick={() => openModal("S")}>
-        S
-      </div>
-      <div className="mbti black"></div>
-      <div className="colorbox mbti yellow" onClick={() => openModal("F")}>
-        F
-      </div>
-      <div className="colorbox mbti red" onClick={() => openModal("J")}>
-        J
-      </div>
->>>>>>> a9c009b310c5e6a34362a13ad32d6542cafe0f1b
 
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Example Modal"
       >
-<<<<<<< HEAD
-        {/* <h2>{selectedMBTI} 게시판</h2>
-        {posts.map((post) => (
-          <div key={post.id}>
-            <button onClick={() => openPostModal(post.id)}>{post.title}</button>
-          </div>
-        ))}
-        <button onClick={closeModal}>close</button> */}
-=======
->>>>>>> a9c009b310c5e6a34362a13ad32d6542cafe0f1b
         <BoardModal
           selectedMBTI={selectedMBTI}
           posts={posts}
           openPostModal={openPostModal}
           closeModal={closeModal}
-<<<<<<< HEAD
-=======
           createPost={createPost}
->>>>>>> a9c009b310c5e6a34362a13ad32d6542cafe0f1b
         />
       </Modal>
 
