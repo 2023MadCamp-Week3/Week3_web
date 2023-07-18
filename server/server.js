@@ -368,10 +368,8 @@ app.post("/boards", async (req, res) => {
 app.get("/boards/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
-    const aa = "현";
-    const [rows] = await pool.query("SELECT * FROM boards WHERE user_id = ?", [
-      aa,
-    ]);
+    const aa = 1;
+    const [rows] = await pool.query("SELECT * FROM boards WHERE id = ?", [aa]);
     res.json(rows);
   } catch (err) {
     console.error(err.message);
