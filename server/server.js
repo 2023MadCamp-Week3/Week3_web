@@ -268,3 +268,33 @@ app.get("/boards/:mbti", async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 });
+
+// 댓글 내용 가져오기
+app.get("/comments/:boardId", async (req, res) => {
+  try {
+    const { boardId } = req.params;
+    const [comments] = await pool.query(
+      "SELECT * FROM comments_b WHERE board_id = ?",
+      [boardId]
+    );
+    res.json(comments);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// 댓글 생성하기
+app.post("/comments", async (req, res) => {
+  try {
+    const { boardId, userId, content } = req.body;
+    const [result] = await pool.query(
+      "INSERT INTO comments_b (board_id, user_id, post_time, content) VALUES (?, ?, ?, ?)",
+      [boardId, userId, new Date(), content]
+    );
+    res.json(result);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+});

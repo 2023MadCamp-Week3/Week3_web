@@ -121,11 +121,9 @@ const Board = () => {
           <>
             <h2>{selectedPost.title}</h2>
             <p>{selectedPost.content}</p>
-            <p>Written by: {selectedPost.user_id}</p>
-            <p>Views: {selectedPost.views}</p>
-            <p>
-              Posted at: {new Date(selectedPost.post_time).toLocaleString()}
-            </p>
+            <p>글쓴이 : {selectedPost.user_id}</p>
+            <p>조회수 : {selectedPost.views}</p>
+            <p>{new Date(selectedPost.post_time).toLocaleString()}</p>
           </>
         )}
         <button onClick={closePostModal}>닫기</button>
