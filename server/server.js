@@ -380,7 +380,7 @@ app.get("/boardsget/:nickname", async (req, res) => {
 });
 
 // 게시물 가져오기
-app.get("/boardsget/:postId", async (req, res) => {
+app.get("/boardsget2/:postId", async (req, res) => {
   try {
     const { postId } = req.params;
 

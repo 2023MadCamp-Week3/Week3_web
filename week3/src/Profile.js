@@ -26,10 +26,14 @@ const Profile = () => {
       const commentsRes = await axios.get(
         `${process.env.REACT_APP_server_uri}/commentsget/${postId}`
       );
-      setModalContent({
+      console.log("sex");
+      console.log(postId);
+      const modalData = {
         post: postRes.data,
         comments: commentsRes.data,
-      });
+      };
+      console.log(modalData);
+      setModalContent(modalData);
       setModalOpen(true);
     } catch (err) {
       console.error(err);
@@ -105,10 +109,7 @@ const Profile = () => {
         <h2>내가 쓴 글</h2>
         <ul>
           {userPosts.map((post) => (
-            <li
-              key={post.id}
-              onClick={() => handlePostClick(post.id, "boards")}
-            >
+            <li key={post.id} onClick={() => handlePostClick(post.id)}>
               {post.title}
             </li>
           ))}
@@ -120,7 +121,9 @@ const Profile = () => {
           <p>{modalContent.post.content}</p>
           <ul>
             {modalContent.comments.map((comment) => (
-              <li key={comment.id}>{comment.content}</li>
+              <li key={comment.id}>
+                {comment.user_id} : {comment.content}
+              </li>
             ))}
           </ul>
         </Modal>
