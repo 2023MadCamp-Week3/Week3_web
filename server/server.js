@@ -341,7 +341,7 @@ app.post("/boards", async (req, res) => {
   const formattedDate = now.toISOString().slice(0, 19).replace("T", " ");
   try {
     const { userId, title, content, mbti } = req.body;
-
+    const zeroview = 0;
     if (!(userId && title && content && mbti)) {
       return res.status(400).json({
         message: "모든 내용을 작성해주세요.",
@@ -350,8 +350,8 @@ app.post("/boards", async (req, res) => {
 
     const post_time = new Date().toISOString().slice(0, 19).replace("T", " ");
     const [result] = await pool.query(
-      "INSERT INTO boards (user_id, mbti, post_time, title, content) VALUES (?, ?, ?, ?, ?)",
-      [userId, mbti, formattedDate, title, content]
+      "INSERT INTO boards (user_id, mbti, post_time, title, content, views) VALUES (?, ?, ?, ?, ?, ?)",
+      [userId, mbti, formattedDate, title, content, zeroview]
     );
 
     res.json({

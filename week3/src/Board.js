@@ -46,9 +46,6 @@ const Board = () => {
   }, [userData]);
 
   const handleCommentSubmit = () => {
-    console.log(selectedPostId);
-    console.log(userData.nickname);
-    console.log(newComment);
     axios
       .post(`${process.env.REACT_APP_server_uri}/comments`, {
         boardId: selectedPostId,
@@ -93,6 +90,29 @@ const Board = () => {
 
   const closePostModal = () => {
     setPostModalIsOpen(false);
+  };
+
+  const createPost = (newPost) => {
+    console.log(userData.nickname);
+    console.log(selectedMBTI);
+    console.log(newPost);
+    axios
+      .post(`${process.env.REACT_APP_server_uri}/boards`, {
+        userId: userData.nickname,
+        mbti: selectedMBTI,
+        ...newPost,
+      })
+      .then((res) => {
+        setPosts([
+          ...posts,
+          {
+            id: res.data.postId,
+            user_id: userData.nickname,
+            post_time: new Date(),
+            ...newPost,
+          },
+        ]);
+      });
   };
 
   const selectedPost = posts.find((post) => post.id === selectedPostId);
@@ -145,6 +165,7 @@ const Board = () => {
           posts={posts}
           openPostModal={openPostModal}
           closeModal={closeModal}
+          createPost={createPost}
         />
       </Modal>
 
