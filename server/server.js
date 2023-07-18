@@ -183,6 +183,8 @@ app.get("/user/:nickname", async (req, res) => {
 
 //새로운 질문 작성
 app.post("/questions", async (req, res) => {
+  const now = new Date();
+  const formattedDate = now.toISOString().slice(0, 19).replace("T", " ");
   try {
     const { user_id, post_time, content, title, A1, A2 } = req.body;
 
@@ -194,7 +196,7 @@ app.post("/questions", async (req, res) => {
 
     const [result] = await pool.query(
       "INSERT INTO questions (user_id, post_time, content, title, A1, A2) VALUES (?, ?, ?, ?, ?, ?)",
-      [user_id, post_time, content, title, A1, A2]
+      [user_id, formattedDate, content, title, A1, A2]
     );
 
     res.json({
