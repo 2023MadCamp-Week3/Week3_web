@@ -17,12 +17,10 @@ const Board = () => {
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-
+  const { userData } = useContext(UserDataContext);
   const goToMain = () => {
     navigate("/Mainpage");
   };
-
-  const { userData, setUserData } = useContext(UserDataContext);
 
   useEffect(() => {
     if (selectedPostId) {
@@ -33,17 +31,6 @@ const Board = () => {
         });
     }
   }, [selectedPostId]);
-
-  useEffect(() => {
-    const storedUserData = localStorage.getItem("userData");
-    if (storedUserData) {
-      setUserData(JSON.parse(storedUserData));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("userData", JSON.stringify(userData));
-  }, [userData]);
 
   const handleCommentSubmit = () => {
     axios
@@ -119,28 +106,41 @@ const Board = () => {
 
   return (
     <div className="board-container">
+      <div className="emptyline" style={{ backgroundColor: "green" }} />
 
-      <div className="emptyline" style={{backgroundColor: "green"}}/>
-
-      <div className="colorbox mbti white"
-        onClick={goToMain}
-      >
+      <div className="colorbox mbti white" onClick={goToMain}>
         {"<<"} 메인 페이지
       </div>
       <div className="mbti black"></div>
-      <div className="colorbox mbti yellow" onClick={() => openModal("E")}>E</div>
+      <div className="colorbox mbti yellow" onClick={() => openModal("E")}>
+        E
+      </div>
       <div className="mbti black"></div>
       <div className="colorbox mbti blue">게시판</div>
-      <div className="colorbox mbti red" onClick={() => openModal("N")}>N</div>
+      <div className="colorbox mbti red" onClick={() => openModal("N")}>
+        N
+      </div>
       <div className="mbti black"></div>
-      <div className="colorbox mbti green" onClick={() => openModal("T")}>T</div>
-      <div className="colorbox mbti lavender" onClick={() => openModal("P")}>P</div>
+      <div className="colorbox mbti green" onClick={() => openModal("T")}>
+        T
+      </div>
+      <div className="colorbox mbti lavender" onClick={() => openModal("P")}>
+        P
+      </div>
       <div className="mbti black"></div>
-      <div className="colorbox mbti white" onClick={() => openModal("I")}>I</div>
-      <div className="colorbox mbti blue" onClick={() => openModal("S")}>S</div>
+      <div className="colorbox mbti white" onClick={() => openModal("I")}>
+        I
+      </div>
+      <div className="colorbox mbti blue" onClick={() => openModal("S")}>
+        S
+      </div>
       <div className="mbti black"></div>
-      <div className="colorbox mbti yellow" onClick={() => openModal("F")}>F</div>
-      <div className="colorbox mbti red" onClick={() => openModal("J")}>J</div>
+      <div className="colorbox mbti yellow" onClick={() => openModal("F")}>
+        F
+      </div>
+      <div className="colorbox mbti red" onClick={() => openModal("J")}>
+        J
+      </div>
 
       <Modal
         isOpen={modalIsOpen}
