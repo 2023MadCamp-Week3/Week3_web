@@ -39,6 +39,7 @@ const Questions = () => {
       `${process.env.REACT_APP_server_uri}/comments_q/${selectedQuestion.id}`
     );
     setComments(response.data);
+    console.log("Aaaaaaaaaaaaaaaaaaaaaa");
     console.log(response.data);
   }, [selectedQuestion]);
 
@@ -324,11 +325,16 @@ const Questions = () => {
             <hr />
             <h3>댓글</h3>
             {comments.map((comment, index) => (
-              <p key={index}>
-                {comment.post_time} by {comment.user_nickname}:{" "}
-                {comment.content}
-              </p>
+              <div key={index} style={{ marginBottom: "10px" }}>
+                <p>
+                  {comment.user_id} : {comment.content}
+                </p>
+                <p style={{ fontSize: "0.8rem" }}>
+                  {new Date(comment.post_time).toLocaleString()}
+                </p>
+              </div>
             ))}
+
             <textarea
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
