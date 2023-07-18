@@ -14,6 +14,7 @@ const Profile = () => {
     navigate("/Mainpage");
   };
   const { userData, setUserData } = useContext(UserDataContext);
+  console.log(userData);
 
   useEffect(() => {
     const storedUserData = localStorage.getItem("userData");
@@ -45,6 +46,9 @@ const Profile = () => {
   }, [fetchUserMBTI]);
 
   const userMBTI = userm1 + userm2 + userm3 + userm4;
+
+  console.log(userMBTI);
+
   return (
     <div className="profile-container" style={{ height: "100vh" }}>
       <div className="column">
@@ -60,18 +64,27 @@ const Profile = () => {
         </div>
       </div>
 
+      <div className="mbti not"></div>
+      <div className="mbti not"></div>
+
       <div className="colorbox mbti yellow">
-        <img src={`/Images/${userMBTI}.png`} alt={`${userMBTI} icon`} />
+        <img
+          src={`/Images/${userMBTI}.png`}
+          alt={`${userMBTI} icon`}
+          height={"100%"}
+          width={"100%"}
+        />
       </div>
-      <div className="mbti not"></div>
-      <div className="mbti not"></div>
+
       <div className="colorbox mbti red">내 MBTI : {userMBTI}</div>
-      <div className="mbti not"></div>
       <div className="colorbox mbti white" style={{ width: "40vw" }}>
         내가 쓴 글
       </div>
-      <div className="colorbox mbti black" style={{ width: "40vw" }}>
-        내가 쓴 댓글
+      <div className="colorbox mbti blue" style={{ width: "30vw" }}>
+        내가 쓴 댓글(질문)
+      </div>
+      <div className="colorbox mbti black" style={{ width: "30vw" }}>
+        내가 쓴 댓글(게시판)
       </div>
     </div>
   );

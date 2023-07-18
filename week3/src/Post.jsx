@@ -39,8 +39,6 @@ const styles = {
 };
 
 function Post(props){
-    //이거 시발 왜안됨?
-    //var colorcode ="#" + Math.round(Math.random() * 0xfffff).toString(16);
     
 
     return (

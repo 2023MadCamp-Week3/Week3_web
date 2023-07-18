@@ -363,3 +363,47 @@ app.post("/boards", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+// Get user's posts
+app.get("/boards/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const [rows] = await pool.query("SELECT * FROM boards WHERE user_id = ?", [
+      userId,
+    ]);
+    res.json(rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// Get user's question comments
+app.get("/comments_q/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const [rows] = await pool.query(
+      "SELECT * FROM comments_q WHERE user_id = ?",
+      [userId]
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// Get user's board comments
+app.get("/comments_b/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const [rows] = await pool.query(
+      "SELECT * FROM comments_b WHERE user_id = ?",
+      [userId]
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+});

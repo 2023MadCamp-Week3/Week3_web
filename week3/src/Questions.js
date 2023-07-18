@@ -36,6 +36,7 @@ const Questions = () => {
     A2: "",
   });
   const [userVote, setUserVote] = useState(null);
+  const [randomColors, setRandomColors] = useState([]);
 
   const fetchComments = useCallback(async () => {
     if (!selectedQuestion) return;
@@ -187,6 +188,17 @@ const Questions = () => {
     );
   };
 
+  const getRandomColor = () => {
+    const letters = ["gold", "tomato", "cornflowerblue", "black"]
+    return letters[Math.floor(Math.random() *4)];
+  }
+
+  useEffect(() => {
+    // Generate random colors only when the component is mounted for the first time
+    const colors = questions.map(() => getRandomColor());
+    setRandomColors(colors);
+  }, [questions]);
+
   const vote = async (voteValue) => {
     try {
       await axios.post(`${process.env.REACT_APP_server_uri}/vote`, {
@@ -203,34 +215,45 @@ const Questions = () => {
   };
 
   return (
-    <div className="container">
-      <button
-        style={{ position: "absolute", top: 50, right: 50, borderRadius: 15 }}
-        onClick={goToMain}
-      >
-        메인 페이지로 이동
-      </button>
-      <h1
-        style={{
-          textAlign: "center",
-        }}
-      >
-        [질문 리스트]
-      </h1>
+    <div className="container" style={{backgroundColor: "black"}}>
+
+      <div className="sline" style={{backgroundColor:"black"}}>
+        <div className="colorbox black"
+          style={{
+            textAlign: "center",
+            color: "white",
+          }}
+        >
+          질문 리스트
+        </div>
+        <div className="colorbox red" onClick={handleWriteShow}>
+          글 쓰기
+        </div>
+        <div
+          className="colorbox yellow"
+          onClick={goToMain}
+        >
+          메인 페이지로 이동
+        </div>
+      </div>
+      
+
       <div
         style={{
           textAlign: "left",
           overflowY: "auto",
           maxHeight: "700px",
+          color: "white",
         }}
       >
-        {questions.map((question) => (
+        {questions.map((question, index) => (
           <div
             className="questions"
             key={question.id}
             onClick={() => handleShow(question)}
             style={{
               marginTop: 20,
+              backgroundColor: randomColors[index],
             }}
           >
             <h2>{question.title}</h2>
@@ -241,9 +264,7 @@ const Questions = () => {
           </div>
         ))}
       </div>
-      <div>
-        <Button onClick={handleWriteShow}>글 쓰기</Button>
-      </div>
+      
       {selectedQuestion && (
         <Modal show={showModal} onHide={handleClose} size="lg">
           <Modal.Header closeButton>
