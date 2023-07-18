@@ -4,8 +4,6 @@ import { UserDataContext } from "./UserDataContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const IPV4 = "10.10.22.236";
-
 const Test = () => {
   const navigate = useNavigate();
   const [userm1, setUserm1] = useState("m1");

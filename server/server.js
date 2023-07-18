@@ -1,12 +1,14 @@
 const express = require("express");
 const app = express();
-const pool = require("./db").promise(); // Add promise()
+const pool = require("./db").promise();
 const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config();
 
 app.use(cors());
-app.use(express.json()); // Enable JSON request body parsing
+app.use(express.json());
 
-app.listen(4000, "0.0.0.0", () => {
+app.listen(process.env.PORT || 4000, () => {
   console.log("Server has started on port 4000");
 });
 
@@ -181,18 +183,20 @@ app.get("/user/:nickname", async (req, res) => {
 
 //새로운 질문 작성
 app.post("/questions", async (req, res) => {
+  const now = new Date();
+  const formattedDate = now.toISOString().slice(0, 19).replace("T", " ");
   try {
-    const { user_id, post_time, content, title } = req.body;
+    const { user_id, post_time, content, title, A1, A2 } = req.body;
 
-    if (!(user_id && post_time && content && title)) {
+    if (!(user_id && post_time && content && title && A1 && A2)) {
       return res.status(400).json({
         message: "모든 내용을 작성해주세요.",
       });
     }
 
     const [result] = await pool.query(
-      "INSERT INTO questions (user_id, post_time, content, title) VALUES (?, ?, ?, ?)",
-      [user_id, post_time, content, title]
+      "INSERT INTO questions (user_id, post_time, content, title, A1, A2) VALUES (?, ?, ?, ?, ?, ?)",
+      [user_id, formattedDate, content, title, A1, A2]
     );
 
     res.json({
@@ -255,9 +259,107 @@ app.get("/boards/:mbti", async (req, res) => {
     const [boards] = await pool.query("SELECT * FROM boards WHERE mbti = ?", [
       mbti,
     ]);
+    for (let board of boards) {
+      await pool.query("UPDATE boards SET views = views + 1 WHERE id = ?", [
+        board.id,
+      ]);
+    }
     res.json(boards);
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// 게시판 댓글 내용 가져오기
+app.get("/comments/:boardId", async (req, res) => {
+  try {
+    const { boardId } = req.params;
+    const [comments] = await pool.query(
+      "SELECT * FROM comments_b WHERE board_id = ?",
+      [boardId]
+    );
+    res.json(comments);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// 게시판 댓글 생성하기
+app.post("/comments", async (req, res) => {
+  const now = new Date();
+  const formattedDate = now.toISOString().slice(0, 19).replace("T", " ");
+  try {
+    const { boardId, userId, content } = req.body;
+    const [result] = await pool.query(
+      "INSERT INTO comments_b (board_id, user_id, post_time, content) VALUES (?, ?, ?, ?)",
+      [boardId, userId, formattedDate, content]
+    );
+    res.json(result);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// 질문 댓글 내용 가져오기
+app.get("/comments_q/:questionId", async (req, res) => {
+  try {
+    const { questionId } = req.params;
+    const [comments] = await pool.query(
+      "SELECT * FROM comments_q WHERE question_id = ?",
+      [questionId]
+    );
+    res.json(comments);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// 질문 댓글 생성하기
+app.post("/comments_q", async (req, res) => {
+  const now = new Date();
+  const formattedDate = now.toISOString().slice(0, 19).replace("T", " ");
+  try {
+    const { questionId, userId, content } = req.body;
+    const [result] = await pool.query(
+      "INSERT INTO comments_q (question_id, user_id, post_time, content) VALUES (?, ?, ?, ?)",
+      [questionId, userId, formattedDate, content]
+    );
+    res.json(result);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+//새로운 게시글 작성
+app.post("/boards", async (req, res) => {
+  const now = new Date();
+  const formattedDate = now.toISOString().slice(0, 19).replace("T", " ");
+  try {
+    const { userId, title, content, mbti } = req.body;
+    const zeroview = 0;
+    if (!(userId && title && content && mbti)) {
+      return res.status(400).json({
+        message: "모든 내용을 작성해주세요.",
+      });
+    }
+
+    const post_time = new Date().toISOString().slice(0, 19).replace("T", " ");
+    const [result] = await pool.query(
+      "INSERT INTO boards (user_id, mbti, post_time, title, content, views) VALUES (?, ?, ?, ?, ?, ?)",
+      [userId, mbti, formattedDate, title, content, zeroview]
+    );
+
+    res.json({
+      message: "Post successfully posted!",
+      postId: result.insertId,
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
   }
 });

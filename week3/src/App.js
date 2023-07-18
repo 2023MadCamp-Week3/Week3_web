@@ -7,8 +7,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { UserDataContext, UserDataProvider } from "./UserDataContext";
 
-const IPV4 = "172.10.5.129";
-
 const App = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,10 +35,13 @@ const App = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_server_uri}/login`, {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_server_uri}/login`,
+        {
+          email,
+          password,
+        }
+      );
 
       if (response.data.status === "ok") {
         setUserData(response.data);

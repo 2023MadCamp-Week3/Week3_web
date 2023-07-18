@@ -4,8 +4,6 @@ import "./Mainpage.css";
 import { UserDataContext } from "./UserDataContext";
 import axios from "axios";
 
-const IPV4 = "172.10.5.129";
-
 const Profile = () => {
   const [userm1, setUserm1] = useState("");
   const [userm2, setUserm2] = useState("");

@@ -6,8 +6,6 @@ import { format } from "date-fns";
 import { UserDataContext } from "./UserDataContext";
 import { useNavigate } from "react-router-dom";
 
-const IPV4 = "172.10.5.129";
-
 const Questions = () => {
   const navigate = useNavigate();
   const goToMain = () => {
@@ -18,6 +16,8 @@ const Questions = () => {
   const [userId, setUserId] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
   const [voteCounts, setVoteCounts] = useState({
     E: { yes: 0, no: 0 },
     I: { yes: 0, no: 0 },
@@ -29,9 +29,44 @@ const Questions = () => {
     J: { yes: 0, no: 0 },
   });
   const [showWriteModal, setShowWriteModal] = useState(false);
-  const [newQuestion, setNewQuestion] = useState({ title: "", content: "" });
+  const [newQuestion, setNewQuestion] = useState({
+    title: "",
+    content: "",
+    A1: "",
+    A2: "",
+  });
   const [userVote, setUserVote] = useState(null);
   const [randomColors, setRandomColors] = useState([]);
+
+  const fetchComments = useCallback(async () => {
+    if (!selectedQuestion) return;
+
+    const response = await axios.get(
+      `${process.env.REACT_APP_server_uri}/comments_q/${selectedQuestion.id}`
+    );
+    setComments(response.data);
+  }, [selectedQuestion]);
+
+  useEffect(() => {
+    fetchComments();
+  }, [selectedQuestion]);
+
+  const createComment = async () => {
+    try {
+      await axios.post(`${process.env.REACT_APP_server_uri}/comments_q`, {
+        questionId: selectedQuestion.id,
+        userId: userData.nickname,
+        content: newComment,
+      });
+
+      alert("댓글이 등록되었습니다.");
+
+      setNewComment("");
+      fetchComments();
+    } catch (err) {
+      alert(err.response.data.message);
+    }
+  };
 
   const handleWriteShow = () => {
     setShowWriteModal(true);
@@ -43,6 +78,10 @@ const Questions = () => {
 
   const handleWriteComplete = async () => {
     try {
+<<<<<<< HEAD
+=======
+      console.log(newQuestion);
+>>>>>>> a9c009b310c5e6a34362a13ad32d6542cafe0f1b
       await axios.post(`${process.env.REACT_APP_server_uri}/questions`, {
         user_id: userId,
         post_time: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
@@ -52,7 +91,7 @@ const Questions = () => {
       alert("글 작성이 완료되었습니다.");
 
       setShowWriteModal(false);
-      setNewQuestion({ title: "", content: "" });
+      setNewQuestion({ title: "", content: "", A1: "", A2: "" });
     } catch (err) {
       alert(err.response.data.message);
     }
@@ -76,7 +115,13 @@ const Questions = () => {
 
   useEffect(() => {
     const fetchQuestions = async () => {
+<<<<<<< HEAD
       const response = await axios.get(`${process.env.REACT_APP_server_uri}/questions`);
+=======
+      const response = await axios.get(
+        `${process.env.REACT_APP_server_uri}/questions`
+      );
+>>>>>>> a9c009b310c5e6a34362a13ad32d6542cafe0f1b
       setQuestions(response.data);
     };
 
@@ -308,6 +353,25 @@ const Questions = () => {
                 <Bar yes={voteCounts.J.yes} no={voteCounts.J.no} />
               </div>
             </div>
+
+            <hr />
+            <h3>댓글</h3>
+            {comments.map((comment, index) => (
+              <div key={index} style={{ marginBottom: "10px" }}>
+                <p>
+                  {comment.user_id} : {comment.content}
+                </p>
+                <p style={{ fontSize: "0.8rem" }}>
+                  {new Date(comment.post_time).toLocaleString()}
+                </p>
+              </div>
+            ))}
+
+            <textarea
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+            />
+            <button onClick={createComment}>댓글 작성</button>
           </Modal.Body>
         </Modal>
       )}
@@ -335,6 +399,26 @@ const Questions = () => {
                 value={newQuestion.content}
                 onChange={(e) =>
                   setNewQuestion({ ...newQuestion, content: e.target.value })
+                }
+              />
+            </label>
+            <label>
+              A1:
+              <input
+                type="text"
+                value={newQuestion.A1}
+                onChange={(e) =>
+                  setNewQuestion({ ...newQuestion, A1: e.target.value })
+                }
+              />
+            </label>
+            <label>
+              A2:
+              <input
+                type="text"
+                value={newQuestion.A2}
+                onChange={(e) =>
+                  setNewQuestion({ ...newQuestion, A2: e.target.value })
                 }
               />
             </label>

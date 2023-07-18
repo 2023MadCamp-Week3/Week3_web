@@ -5,8 +5,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-const IPV4 = "172.10.5.129";
-
 const Signup = () => {
   const [name, setName] = useState("");
   const [nickname, setNickname] = useState("");
