@@ -286,11 +286,13 @@ app.get("/comments/:boardId", async (req, res) => {
 
 // 댓글 생성하기
 app.post("/comments", async (req, res) => {
+  const now = new Date();
+  const formattedDate = now.toISOString().slice(0, 19).replace("T", " ");
   try {
     const { boardId, userId, content } = req.body;
     const [result] = await pool.query(
       "INSERT INTO comments_b (board_id, user_id, post_time, content) VALUES (?, ?, ?, ?)",
-      [boardId, userId, new Date(), content]
+      [boardId, userId, formattedDate, content]
     );
     res.json(result);
   } catch (err) {

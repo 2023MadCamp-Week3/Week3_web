@@ -15,12 +15,24 @@ const Board = () => {
   const [posts, setPosts] = useState([]);
   const [selectedMBTI, setSelectedMBTI] = useState("");
   const [selectedPostId, setSelectedPostId] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
 
   const goToMain = () => {
     navigate("/Mainpage");
   };
 
   const { userData, setUserData } = useContext(UserDataContext);
+
+  useEffect(() => {
+    if (selectedPostId) {
+      axios
+        .get(`${process.env.REACT_APP_server_uri}/comments/${selectedPostId}`)
+        .then((res) => {
+          setComments(res.data);
+        });
+    }
+  }, [selectedPostId]);
 
   useEffect(() => {
     const storedUserData = localStorage.getItem("userData");
@@ -32,6 +44,30 @@ const Board = () => {
   useEffect(() => {
     localStorage.setItem("userData", JSON.stringify(userData));
   }, [userData]);
+
+  const handleCommentSubmit = () => {
+    console.log(selectedPostId);
+    console.log(userData.nickname);
+    console.log(newComment);
+    axios
+      .post(`${process.env.REACT_APP_server_uri}/comments`, {
+        boardId: selectedPostId,
+        userId: userData.nickname,
+        content: newComment,
+      })
+      .then((res) => {
+        setComments([
+          ...comments,
+          {
+            board_id: selectedPostId,
+            user_id: userData.nickname,
+            post_time: new Date(),
+            content: newComment,
+          },
+        ]);
+        setNewComment("");
+      });
+  };
 
   const openModal = async (mbti) => {
     setSelectedMBTI(mbti);
@@ -121,9 +157,26 @@ const Board = () => {
           <>
             <h2>{selectedPost.title}</h2>
             <p>{selectedPost.content}</p>
-            <p>글쓴이 : {selectedPost.user_id}</p>
-            <p>조회수 : {selectedPost.views}</p>
-            <p>{new Date(selectedPost.post_time).toLocaleString()}</p>
+            <p>Written by: {selectedPost.user_id}</p>
+            <p>Views: {selectedPost.views}</p>
+            <p>
+              Posted at: {new Date(selectedPost.post_time).toLocaleString()}
+            </p>
+
+            {comments.map((comment) => (
+              <div key={comment.id}>
+                <p>{comment.content}</p>
+                <p>Commented by: {comment.user_id}</p>
+                <p>Posted at: {new Date(comment.post_time).toLocaleString()}</p>
+              </div>
+            ))}
+
+            <input
+              type="text"
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+            />
+            <button onClick={handleCommentSubmit}>댓글 작성</button>
           </>
         )}
         <button onClick={closePostModal}>닫기</button>
