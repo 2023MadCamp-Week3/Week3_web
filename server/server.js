@@ -368,8 +368,9 @@ app.post("/boards", async (req, res) => {
 app.get("/boards/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
-    const aa = 1;
-    const [rows] = await pool.query("SELECT * FROM boards WHERE id = ?", [aa]);
+    const [rows] = await pool.query("SELECT * FROM boards WHERE user_id = ?", [
+      userId,
+    ]);
     res.json(rows);
   } catch (err) {
     console.error(err.message);
