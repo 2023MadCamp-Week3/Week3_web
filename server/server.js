@@ -257,6 +257,11 @@ app.get("/boards/:mbti", async (req, res) => {
     const [boards] = await pool.query("SELECT * FROM boards WHERE mbti = ?", [
       mbti,
     ]);
+    for (let board of boards) {
+      await pool.query("UPDATE boards SET views = views + 1 WHERE id = ?", [
+        board.id,
+      ]);
+    }
     res.json(boards);
   } catch (err) {
     console.error(err.message);

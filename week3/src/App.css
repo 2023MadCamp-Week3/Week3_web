@@ -1,42 +1,140 @@
-.container {
+@font-face {
+  font-family: 'SUITE-Black';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MonoplexKRWide-BoldItalic';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_Monoplex-wide@1.0/MonoplexKRWide-BoldItalic.woff2') format('woff2');
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.login-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  background-color: black;
+  justify-content: flex-start;
   height: 100vh;
+  font-family: 'SUITE-Black', sans-serif;
+}
+
+.main-img{
+  position: relative;
+}
+
+.img-text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate( -50%, -50% );
+  color: white;
+  font-size: 5em;
+  font-weight: 900;
+}
+
+.darkimg{
+  filter: brightness(20%);
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
-}
-
-.input-group {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: 15px;
-}
-
-label {
-  margin: 10px 0;
-  width: 100px;
 }
 
 button {
-  margin-top: 10px;
-  padding: 10px 20px;
   border: none;
-  background-color: #6c63ff;
+  background-color: black;
   color: white;
   cursor: pointer;
 }
 
-.buttt {
-  margin-top: 20px;
+input{
+  border-style: none;
 }
 
 .register-btn {
-  background-color: #f3722c;
+  background-color: black;
+}
+
+.textbox {
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-align: left;
+  padding: 0.4em;
+  width: 15vh;
+  height: 15vh;
+  background-color: yellow;
+}
+
+.textbox:hover {
+  background-color: aliceblue;
+  color:black;
+  transition: 0.3s;
+}
+
+.push {
+  margin-left: auto;
+}
+
+.blue {
+  background-color:cornflowerblue;
+}
+
+.column {
+  align-content: stretch;
+  flex-direction: column;
+}
+
+.emptyline {
+  height: 10vh;
+  background-color:transparent;
+}
+
+.emptybox {
+  width: 10vw;
+  background-color:transparent;
+}
+
+.black {
+  background-color: black;
+  color: white;
+}
+
+.not {
+  background-color:transparent;
+}
+
+.white {
+  background-color: white;
+  color: black;
+}
+
+.white:hover {
+  background-color:aliceblue;
+  color: black;
+}
+
+.red {
+  background-color:tomato;
+}
+
+.green {
+  background-color:yellowgreen;
+}
+
+.yellow {
+  background-color:gold;
+  color: black;
+}
+
+.lavender {
+  background-color:orchid;
+  color: black;
 }

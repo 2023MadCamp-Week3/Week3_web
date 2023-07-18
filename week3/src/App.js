@@ -69,39 +69,57 @@ const App = () => {
 
   return (
     <UserDataProvider>
-      <div className="container">
+      <div className="login-container">
         <ToastContainer />
-        <h1>너 T야?</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label htmlFor="email">이메일:</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={handleEmailChange}
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="password">비밀번호:</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
-          </div>
-          <button className="buttt" type="submit">
-            로그인
-          </button>
-        </form>
-        <button
-          className="register-btn"
-          type="submit"
-          onClick={() => handleClick("/signup")}
-        >
-          회원 가입
-        </button>
+        <div className="main-img" style={{ width: "40vw" }}>
+          <img
+            className="darkimg"
+            src="https://image.ytn.co.kr/osen/2015/03/201503302138778017_5519456b69f38.jpg"
+            style={{ width: "100%" }}
+          ></img>
+          <h1 className="img-text">너 T야?</h1>
+        </div>
+
+        <div className="textbox" style={{ width: "60vw", padding: "0" }}>
+          <div className="emptyline" />
+          <form onSubmit={handleSubmit}>
+            <div className="column">
+              <label
+                className="textbox green"
+                htmlFor="email"
+                style={{ display: "block" }}
+              >
+                이메일:
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={handleEmailChange}
+              />
+            </div>
+            <div className="column">
+              <label htmlFor="password">비밀번호:</label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={handlePasswordChange}
+              />
+            </div>
+            <button className="textbox yellow" type="submit">
+              로그인
+            </button>
+
+            <div
+              className="textbox blue"
+              type="submit"
+              onClick={() => handleClick("/signup")}
+            >
+              회원 가입
+            </div>
+          </form>
+        </div>
       </div>
     </UserDataProvider>
   );

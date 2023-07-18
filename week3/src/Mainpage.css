@@ -1,3 +1,154 @@
-.bts {
-  margin-top: 30px;
+@font-face {
+    font-family: 'SUITE-Black';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-style: normal;
 }
+
+@font-face {
+    font-family: 'MonoplexKRWide-BoldItalic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_Monoplex-wide@1.0/MonoplexKRWide-BoldItalic.woff2') format('woff2');
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
+.main-container {
+    background-color: black;
+    color:black;
+    font-family: 'Poppins', sans-serif;
+}
+
+.board-container {
+    background-color: black;
+    color:black;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.profile-container {
+    background-color: gold;
+    color:black;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.nav-container {
+    height: 50px;
+    display: flex;
+    line-height: 50px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+}
+
+.entries {
+    height: 50px;
+    flex: 1;
+    text-align: center;
+    align-self: center;
+}
+
+.entries:hover {
+    background-color: white;
+    color: black
+}
+
+.line {
+    height: 40vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+}
+
+.column {
+    align-content: stretch;
+    flex-direction: column;
+}
+
+.colorbox {
+    font-weight: 900;
+    font-size: 2.5em;
+    text-align: left;
+    padding: 0.4em;
+}
+
+.colorbox:hover {
+    background-color: aliceblue;
+    color:black;
+    transition: 0.3s;
+}
+
+.mbti {
+    width: 20vw;
+    height: 20vw;
+    text-align: center;
+}
+
+.push {
+    margin-left: auto;
+}
+
+.blue {
+    background-color:cornflowerblue;
+}
+
+.emptyline {
+    height: 10vh;
+    background-color:transparent;
+}
+
+.emptybox {
+    width: 10vw;
+    background-color:transparent;
+}
+
+.black {
+    background-color: black;
+    color: white;
+}
+
+.not {
+    background-color:transparent;
+}
+
+.white {
+    background-color: white;
+    color: black;
+}
+.white:hover {
+    background-color:aliceblue;
+    color: black;
+}
+
+.red {
+    background-color:tomato;
+}
+
+.green {
+    background-color:yellowgreen;
+}
+
+.yellow {
+    background-color:gold;
+    color: black;
+}
+
+.lavender {
+    background-color:orchid;
+    color: black;
+}
+
+.bts {
+    margin-top: 30px;
+  }
+  

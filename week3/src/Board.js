@@ -1,9 +1,10 @@
 import { useContext, useState, useEffect, React } from "react";
-import "./Board.css";
+import "./Mainpage.css";
 import { UserDataContext } from "./UserDataContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Modal from "react-modal";
+import BoardModal from "./BoardModal";
 
 Modal.setAppElement("#root");
 
@@ -61,35 +62,54 @@ const Board = () => {
   const selectedPost = posts.find((post) => post.id === selectedPostId);
 
   return (
-    <div className="container">
-      <button
-        style={{ position: "absolute", top: 50, right: 50, borderRadius: 15 }}
-        onClick={goToMain}
-      >
-        메인 페이지로 이동
-      </button>
-      <h1>게시판</h1>
-      <button onClick={() => openModal("E")}>E</button>
-      <button onClick={() => openModal("I")}>I</button>
-      <button onClick={() => openModal("N")}>N</button>
-      <button onClick={() => openModal("S")}>S</button>
-      <button onClick={() => openModal("T")}>T</button>
-      <button onClick={() => openModal("F")}>F</button>
-      <button onClick={() => openModal("P")}>P</button>
-      <button onClick={() => openModal("J")}>J</button>
+    <div className="board-container">
+      <div className="emptyline" style={{ backgroundColor: "green" }} />
+
+      <div className="colorbox mbti white" onClick={goToMain}>
+        {"<<"} 메인 페이지
+      </div>
+      <div className="mbti black"></div>
+      <div className="colorbox mbti yellow" onClick={() => openModal("E")}>
+        E
+      </div>
+      <div className="mbti black"></div>
+      <div className="colorbox mbti blue">게시판</div>
+      <div className="colorbox mbti red" onClick={() => openModal("N")}>
+        N
+      </div>
+      <div className="mbti black"></div>
+      <div className="colorbox mbti green" onClick={() => openModal("T")}>
+        T
+      </div>
+      <div className="colorbox mbti lavender" onClick={() => openModal("P")}>
+        P
+      </div>
+      <div className="mbti black"></div>
+      <div className="colorbox mbti white" onClick={() => openModal("I")}>
+        I
+      </div>
+      <div className="colorbox mbti blue" onClick={() => openModal("S")}>
+        S
+      </div>
+      <div className="mbti black"></div>
+      <div className="colorbox mbti yellow" onClick={() => openModal("F")}>
+        F
+      </div>
+      <div className="colorbox mbti red" onClick={() => openModal("J")}>
+        J
+      </div>
 
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Example Modal"
       >
-        <h2>{selectedMBTI} 게시판</h2>
-        {posts.map((post) => (
-          <div key={post.id}>
-            <button onClick={() => openPostModal(post.id)}>{post.title}</button>
-          </div>
-        ))}
-        <button onClick={closeModal}>close</button>
+        <BoardModal
+          selectedMBTI={selectedMBTI}
+          posts={posts}
+          openPostModal={openPostModal}
+          closeModal={closeModal}
+        />
       </Modal>
 
       <Modal
@@ -102,6 +122,10 @@ const Board = () => {
             <h2>{selectedPost.title}</h2>
             <p>{selectedPost.content}</p>
             <p>Written by: {selectedPost.user_id}</p>
+            <p>Views: {selectedPost.views}</p>
+            <p>
+              Posted at: {new Date(selectedPost.post_time).toLocaleString()}
+            </p>
           </>
         )}
         <button onClick={closePostModal}>닫기</button>
