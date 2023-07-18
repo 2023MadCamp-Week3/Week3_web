@@ -364,50 +364,6 @@ app.post("/boards", async (req, res) => {
   }
 });
 
-// // Get user's posts
-// app.get("/boards/:userId", async (req, res) => {
-//   try {
-//     const { userId } = req.params;
-//     const [rows] = await pool.query("SELECT * FROM boards WHERE user_id = ?", [
-//       userId,
-//     ]);
-//     res.json(rows);
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).json({ message: "Server Error" });
-//   }
-// });
-
-// // Get user's question comments
-// app.get("/comments_q/:userId", async (req, res) => {
-//   try {
-//     const { userId } = req.params;
-//     const [rows2] = await pool.query(
-//       "SELECT * FROM comments_q WHERE user_id = ?",
-//       [userId]
-//     );
-//     res.json(rows2);
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).json({ message: "Server Error" });
-//   }
-// });
-
-// // Get user's board comments
-// app.get("/comments_b/:userId", async (req, res) => {
-//   try {
-//     const { userId } = req.params;
-//     const [rows3] = await pool.query(
-//       "SELECT * FROM comments_b WHERE user_id = ?",
-//       [userId]
-//     );
-//     res.json(rows3);
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).json({ message: "Server Error" });
-//   }
-// });
-
 // 사용자의 게시글을 가져옵니다.
 app.get("/boardsget/:nickname", async (req, res) => {
   const nickname = req.params.nickname;
@@ -417,36 +373,6 @@ app.get("/boardsget/:nickname", async (req, res) => {
       [nickname]
     );
     res.json(userPosts);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-});
-
-// 사용자의 질문 댓글을 가져옵니다.
-app.get("/comments/q/:nickname", async (req, res) => {
-  const nickname = req.params.nickname;
-  try {
-    const [userQuestionComments] = await pool.query(
-      "SELECT * FROM comments_q WHERE user_id = ?",
-      [nickname]
-    );
-    res.json(userQuestionComments);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-});
-
-// 사용자의 게시판 댓글을 가져옵니다.
-app.get("/comments/b/:nickname", async (req, res) => {
-  const nickname = req.params.nickname;
-  try {
-    const [userBoardComments] = await pool.query(
-      "SELECT * FROM comments_b WHERE user_id = ?",
-      [nickname]
-    );
-    res.json(userBoardComments);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -469,16 +395,24 @@ app.get("/:postType/:postId", async (req, res) => {
   }
 });
 
-// 게시물 또는 질문에 대한 댓글 가져오기
-app.get("/comments/:postType/:postId", async (req, res) => {
+app.get("/boardsget/:id", async (req, res) => {
+  const id = req.params.id;
   try {
-    const { postType, postId } = req.params;
+    const [post] = await pool.query("SELECT * FROM boards WHERE id = ?", [id]);
+    res.json(post[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
+app.get("/commentsget/:board_id", async (req, res) => {
+  const board_id = req.params.board_id;
+  try {
     const [comments] = await pool.query(
-      `SELECT * FROM ${postType} WHERE id = ?`,
-      [postId]
+      "SELECT * FROM comments_b WHERE board_id = ?",
+      [board_id]
     );
-
     res.json(comments);
   } catch (err) {
     console.error(err.message);

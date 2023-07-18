@@ -18,14 +18,13 @@ const Profile = () => {
     navigate("/Mainpage");
   };
 
-  const handlePostClick = async (postId, postType) => {
-    console.log(postId);
+  const handlePostClick = async (postId) => {
     try {
       const postRes = await axios.get(
-        `${process.env.REACT_APP_server_uri}/${postType}/${postId}`
+        `${process.env.REACT_APP_server_uri}/boardsget/${postId}`
       );
       const commentsRes = await axios.get(
-        `${process.env.REACT_APP_server_uri}/comments/${postType}/${postId}`
+        `${process.env.REACT_APP_server_uri}/commentsget/${postId}`
       );
       setModalContent({
         post: postRes.data,
@@ -59,12 +58,6 @@ const Profile = () => {
   // user's posts
   const [userPosts, setUserPosts] = useState([]);
 
-  // user's question comments
-  const [userQuestionComments, setUserQuestionComments] = useState([]);
-
-  // user's board comments
-  const [userBoardComments, setUserBoardComments] = useState([]);
-
   const fetchUserPosts = useCallback(async () => {
     try {
       const response = await axios.get(
@@ -76,33 +69,9 @@ const Profile = () => {
     }
   }, [userData]);
 
-  const fetchUserQuestionComments = useCallback(async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_server_uri}/comments/q/${userData.nickname}`
-      );
-      setUserQuestionComments(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  }, [userData]);
-
-  const fetchUserBoardComments = useCallback(async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_server_uri}/comments/b/${userData.nickname}`
-      );
-      setUserBoardComments(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  }, [userData]);
-
   useEffect(() => {
     fetchUserPosts();
-    fetchUserQuestionComments();
-    fetchUserBoardComments();
-  }, [fetchUserPosts, fetchUserQuestionComments, fetchUserBoardComments]);
+  }, [fetchUserPosts]);
 
   return (
     <div className="profile-container" style={{ height: "100vh" }}>
@@ -141,32 +110,6 @@ const Profile = () => {
               onClick={() => handlePostClick(post.id, "boards")}
             >
               {post.title}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="colorbox mbti blue" style={{ width: "30vw" }}>
-        <h2>내가 쓴 댓글(질문)</h2>
-        <ul>
-          {userQuestionComments.map((comment) => (
-            <li
-              key={comment.id}
-              onClick={() => handlePostClick(comment.question_id, "comments_q")}
-            >
-              {comment.content}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="colorbox mbti black" style={{ width: "30vw" }}>
-        <h2>내가 쓴 댓글(게시판)</h2>
-        <ul>
-          {userBoardComments.map((comment) => (
-            <li
-              key={comment.id}
-              onClick={() => handlePostClick(comment.board_id, "comments_b")}
-            >
-              {comment.content}
             </li>
           ))}
         </ul>
