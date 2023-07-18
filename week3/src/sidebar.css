@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+
+.board-container {
+  font-family: 'Poppins', sans-serif;
+}
+
+.sidebar {
+    position: fixed;
+    padding: 1em;
+    top: 0;
+    left: 0;
+    width: 200px; /* 사이드바의 너비를 원하는 값으로 조정해주세요 */
+    height: 100vh; /* 사이드바의 높이를 전체 화면 높이로 설정 */
+    background-color: black;
+    color: white;/* 원하는 배경색으로 변경해주세요 */
+    /* 추가적인 스타일링을 원하시면 여기에 작성해주세요 */
+  }
+  
+  .content {
+    margin-left: 200px;
+    padding: 5em;/* 사이드바의 너비와 동일한 값으로 왼쪽 여백을 설정하여 페이지 내용을 사이드바 옆으로 밀어냄 */
+    /* 추가적인 스타일링을 원하시면 여기에 작성해주세요 */
+  }
+  

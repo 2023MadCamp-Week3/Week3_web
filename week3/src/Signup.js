@@ -53,7 +53,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       const userData = { name, nickname, email, password, ...mbti };
-      await axios.post(`http://${IPV4}:443/signup`, userData);
+      await axios.post(`${process.env.REACT_APP_server_uri}/signup`, userData);
       navigate("/");
       toast("회원 가입이 완료되었습니s다!", {
         autoClose: 500,

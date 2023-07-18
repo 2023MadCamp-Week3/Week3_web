@@ -1,18 +1,14 @@
 body {
   font-family: "Roboto", sans-serif; /* Consistent font */
-  color: #333; /* Neutral, readable text color */
-  background-color: #f4f4f4; /* Soft background for contrast */
+  color: white;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  width: 100vw;
 }
 
 .questions {
   background-color: #ffffff; /* Differentiates each question visually */
-  border-radius: 5px; /* Soft edges */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Very subtle shadow for depth */
   padding: 20px;
   margin-bottom: 20px;
@@ -27,11 +23,6 @@ p {
 }
 
 .Button {
-  background-color: #007bff;
-  color: #ffffff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
   cursor: pointer;
 }
 

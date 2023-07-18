@@ -1,6 +1,6 @@
 import { useContext, useState, useCallback, useEffect, React } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Profile.css";
+import "./Mainpage.css";
 import { UserDataContext } from "./UserDataContext";
 import axios from "axios";
 
@@ -31,7 +31,7 @@ const Profile = () => {
   const fetchUserMBTI = useCallback(async () => {
     try {
       const response = await axios.get(
-        `http://${IPV4}:443/user/${userData.nickname}`
+        `${process.env.REACT_APP_server_uri}/user/${userData.nickname}`
       );
       setUserm1(response.data.m1);
       setUserm2(response.data.m2);
@@ -47,24 +47,37 @@ const Profile = () => {
   }, [fetchUserMBTI]);
 
   const userMBTI = userm1 + userm2 + userm3 + userm4;
+
+  console.log(userMBTI);
+
   return (
-    <div className="container">
-      <button
-        style={{ position: "absolute", top: 50, right: 50, borderRadius: 15 }}
-        onClick={goToMain}
-      >
-        메인 페이지로 이동
-      </button>
-      <h1>내 프로필</h1>
-      <img
-        src={`/Images/${userMBTI}.png`}
-        alt={`${userMBTI} icon`}
-        width={100}
-        height={100}
-      />
-      <p>내 MBTI : {userMBTI}</p>
-      <p>내가 쓴 글</p>
-      <p>내가 댓글 단 글</p>
+    <div className="profile-container" style={{height: "100vh"}}>
+      <div className="column">
+        <div className = "colorbox mbti white"
+          style={{height: "10vw"}}
+          onClick={goToMain}
+        >
+          {"<<"} 메인 페이지
+        </div>
+        <div className = "colorbox mbti blue" style={{height: "10vw"}}>내 프로필</div>
+      </div>
+
+      <div className="mbti not"></div>
+      <div className="mbti not"></div>
+
+      <div className="colorbox mbti yellow">
+        <img
+          src={`/Images/${userMBTI}.png`}
+          alt={`${userMBTI} icon`}
+          height={"100%"}
+          width={"100%"}
+        />
+      </div>
+      
+      <div className="colorbox mbti red">내 MBTI : {userMBTI}</div>
+      <div className="mbti not"></div>
+      <div className = "colorbox mbti white" style={{width: "40vw"}}>내가 쓴 글</div>
+      <div className = "colorbox mbti black" style={{width: "40vw"}}>내가 쓴 댓글</div>
     </div>
   );
 };
