@@ -335,13 +335,14 @@ app.post("/comments_q", async (req, res) => {
   }
 });
 
-app.post("/posts", async (req, res) => {
+//새로운 게시글 작성
+app.post("/boards", async (req, res) => {
   const now = new Date();
   const formattedDate = now.toISOString().slice(0, 19).replace("T", " ");
   try {
-    const { userId, title, content } = req.body;
+    const { userId, title, content, mbti } = req.body;
 
-    if (!(userId && title && content)) {
+    if (!(userId && title && content && mbti)) {
       return res.status(400).json({
         message: "모든 내용을 작성해주세요.",
       });
@@ -349,8 +350,8 @@ app.post("/posts", async (req, res) => {
 
     const post_time = new Date().toISOString().slice(0, 19).replace("T", " ");
     const [result] = await pool.query(
-      "INSERT INTO posts (user_id, post_time, title, content) VALUES (?, ?, ?, ?)",
-      [userId, formattedDate, title, content]
+      "INSERT INTO boards (user_id, mbti, post_time, title, content) VALUES (?, ?, ?, ?, ?)",
+      [userId, mbti, formattedDate, title, content]
     );
 
     res.json({
