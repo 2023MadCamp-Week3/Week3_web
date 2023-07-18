@@ -302,7 +302,7 @@ app.post("/comments", async (req, res) => {
 });
 
 // 질문 댓글 내용 가져오기
-app.get("/comments_q/:question_Id", async (req, res) => {
+app.get("/comments_q/:questionId", async (req, res) => {
   try {
     const { questionId } = req.params;
     const [comments] = await pool.query(

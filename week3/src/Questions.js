@@ -16,6 +16,8 @@ const Questions = () => {
   const [userId, setUserId] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
   const [voteCounts, setVoteCounts] = useState({
     E: { yes: 0, no: 0 },
     I: { yes: 0, no: 0 },
@@ -29,6 +31,37 @@ const Questions = () => {
   const [showWriteModal, setShowWriteModal] = useState(false);
   const [newQuestion, setNewQuestion] = useState({ title: "", content: "" });
   const [userVote, setUserVote] = useState(null);
+
+  const fetchComments = useCallback(async () => {
+    if (!selectedQuestion) return;
+
+    const response = await axios.get(
+      `${process.env.REACT_APP_server_uri}/comments_q/${selectedQuestion.id}`
+    );
+    setComments(response.data);
+    console.log(response.data);
+  }, [selectedQuestion]);
+
+  useEffect(() => {
+    fetchComments();
+  }, [selectedQuestion]);
+
+  const createComment = async () => {
+    try {
+      await axios.post(`${process.env.REACT_APP_server_uri}/comments_q`, {
+        questionId: selectedQuestion.id,
+        userId,
+        content: newComment,
+      });
+
+      alert("댓글이 등록되었습니다.");
+
+      setNewComment("");
+      fetchComments();
+    } catch (err) {
+      alert(err.response.data.message);
+    }
+  };
 
   const handleWriteShow = () => {
     setShowWriteModal(true);
@@ -287,6 +320,20 @@ const Questions = () => {
                 <Bar yes={voteCounts.J.yes} no={voteCounts.J.no} />
               </div>
             </div>
+
+            <hr />
+            <h3>댓글</h3>
+            {comments.map((comment, index) => (
+              <p key={index}>
+                {comment.post_time} by {comment.user_nickname}:{" "}
+                {comment.content}
+              </p>
+            ))}
+            <textarea
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+            />
+            <button onClick={createComment}>댓글 작성</button>
           </Modal.Body>
         </Modal>
       )}
