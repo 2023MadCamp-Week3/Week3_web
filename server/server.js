@@ -452,3 +452,35 @@ app.get("/comments/b/:nickname", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+// 게시물 또는 질문 가져오기
+app.get("/:postType/:postId", async (req, res) => {
+  try {
+    const { postType, postId } = req.params;
+
+    const [post] = await pool.query(`SELECT * FROM ${postType} WHERE id = ?`, [
+      postId,
+    ]);
+
+    res.json(post[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// 게시물 또는 질문에 대한 댓글 가져오기
+app.get("/comments/:postType/:postId", async (req, res) => {
+  try {
+    const { postType, postId } = req.params;
+
+    const [comments] = await pool.query(`SELECT * FROM comments WHERE id = ?`, [
+      postId,
+    ]);
+
+    res.json(comments);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});

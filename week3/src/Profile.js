@@ -19,9 +19,10 @@ const Profile = () => {
   };
 
   const handlePostClick = async (postId, postType) => {
+    console.log(postId);
     try {
       const postRes = await axios.get(
-        `${process.env.REACT_APP_server_uri}/post/${postType}/${postId}`
+        `${process.env.REACT_APP_server_uri}/${postType}/${postId}`
       );
       const commentsRes = await axios.get(
         `${process.env.REACT_APP_server_uri}/comments/${postType}/${postId}`
@@ -67,11 +68,9 @@ const Profile = () => {
   const fetchUserPosts = useCallback(async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_server_uri}/boards/${userData.nickname}`
+        `${process.env.REACT_APP_server_uri}/boardsget/${userData.nickname}`
       );
       setUserPosts(response.data);
-      console.log("1111");
-      console.log(response.data);
     } catch (err) {
       console.error(err);
     }
@@ -83,8 +82,6 @@ const Profile = () => {
         `${process.env.REACT_APP_server_uri}/comments/q/${userData.nickname}`
       );
       setUserQuestionComments(response.data);
-      console.log("2222");
-      console.log(response.data);
     } catch (err) {
       console.error(err);
     }
@@ -96,8 +93,6 @@ const Profile = () => {
         `${process.env.REACT_APP_server_uri}/comments/b/${userData.nickname}`
       );
       setUserBoardComments(response.data);
-      console.log("3333");
-      console.log(response.data);
     } catch (err) {
       console.error(err);
     }
@@ -141,7 +136,10 @@ const Profile = () => {
         <h2>내가 쓴 글</h2>
         <ul>
           {userPosts.map((post) => (
-            <li key={post.id} onClick={() => handlePostClick(post.id, "board")}>
+            <li
+              key={post.id}
+              onClick={() => handlePostClick(post.id, "boards")}
+            >
               {post.title}
             </li>
           ))}
@@ -153,7 +151,7 @@ const Profile = () => {
           {userQuestionComments.map((comment) => (
             <li
               key={comment.id}
-              onClick={() => handlePostClick(comment.question_id, "question")}
+              onClick={() => handlePostClick(comment.question_id, "comments_q")}
             >
               {comment.content}
             </li>
@@ -166,7 +164,7 @@ const Profile = () => {
           {userBoardComments.map((comment) => (
             <li
               key={comment.id}
-              onClick={() => handlePostClick(comment.board_id, "board")}
+              onClick={() => handlePostClick(comment.board_id, "comments_b")}
             >
               {comment.content}
             </li>
