@@ -184,17 +184,17 @@ app.get("/user/:nickname", async (req, res) => {
 //새로운 질문 작성
 app.post("/questions", async (req, res) => {
   try {
-    const { user_id, post_time, content, title } = req.body;
+    const { user_id, post_time, content, title, A1, A2 } = req.body;
 
-    if (!(user_id && post_time && content && title)) {
+    if (!(user_id && post_time && content && title && A1 && A2)) {
       return res.status(400).json({
         message: "모든 내용을 작성해주세요.",
       });
     }
 
     const [result] = await pool.query(
-      "INSERT INTO questions (user_id, post_time, content, title) VALUES (?, ?, ?, ?)",
-      [user_id, post_time, content, title]
+      "INSERT INTO questions (user_id, post_time, content, title, A1, A2) VALUES (?, ?, ?, ?, ?, ?)",
+      [user_id, post_time, content, title, A1, A2]
     );
 
     res.json({

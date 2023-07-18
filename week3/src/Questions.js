@@ -29,7 +29,12 @@ const Questions = () => {
     J: { yes: 0, no: 0 },
   });
   const [showWriteModal, setShowWriteModal] = useState(false);
-  const [newQuestion, setNewQuestion] = useState({ title: "", content: "" });
+  const [newQuestion, setNewQuestion] = useState({
+    title: "",
+    content: "",
+    A1: "",
+    A2: "",
+  });
   const [userVote, setUserVote] = useState(null);
 
   const fetchComments = useCallback(async () => {
@@ -39,8 +44,6 @@ const Questions = () => {
       `${process.env.REACT_APP_server_uri}/comments_q/${selectedQuestion.id}`
     );
     setComments(response.data);
-    console.log("Aaaaaaaaaaaaaaaaaaaaaa");
-    console.log(response.data);
   }, [selectedQuestion]);
 
   useEffect(() => {
@@ -74,6 +77,7 @@ const Questions = () => {
 
   const handleWriteComplete = async () => {
     try {
+      console.log(newQuestion);
       await axios.post(`${process.env.REACT_APP_server_uri}/questions`, {
         user_id: userId,
         post_time: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
@@ -83,7 +87,7 @@ const Questions = () => {
       alert("글 작성이 완료되었습니다.");
 
       setShowWriteModal(false);
-      setNewQuestion({ title: "", content: "" });
+      setNewQuestion({ title: "", content: "", A1: "", A2: "" });
     } catch (err) {
       alert(err.response.data.message);
     }
@@ -367,6 +371,26 @@ const Questions = () => {
                 value={newQuestion.content}
                 onChange={(e) =>
                   setNewQuestion({ ...newQuestion, content: e.target.value })
+                }
+              />
+            </label>
+            <label>
+              A1:
+              <input
+                type="text"
+                value={newQuestion.A1}
+                onChange={(e) =>
+                  setNewQuestion({ ...newQuestion, A1: e.target.value })
+                }
+              />
+            </label>
+            <label>
+              A2:
+              <input
+                type="text"
+                value={newQuestion.A2}
+                onChange={(e) =>
+                  setNewQuestion({ ...newQuestion, A2: e.target.value })
                 }
               />
             </label>
