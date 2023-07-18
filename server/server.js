@@ -409,7 +409,7 @@ app.post("/boards", async (req, res) => {
 // });
 
 // 사용자의 게시글을 가져옵니다.
-app.get("/boards/:nickname", async (req, res) => {
+app.get("/boardsget/:nickname", async (req, res) => {
   const nickname = req.params.nickname;
   try {
     const [userPosts] = await pool.query(

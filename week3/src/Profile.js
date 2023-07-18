@@ -57,47 +57,47 @@ const Profile = () => {
 
   // user's posts
   const [userPosts, setUserPosts] = useState([]);
+
+  // user's question comments
+  const [userQuestionComments, setUserQuestionComments] = useState([]);
+
+  // user's board comments
+  const [userBoardComments, setUserBoardComments] = useState([]);
+
   const fetchUserPosts = useCallback(async () => {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_server_uri}/boards/${userData.nickname}`
       );
       setUserPosts(response.data);
+      console.log("1111");
       console.log(response.data);
-      console.log(userData.nickname);
-      console.log("111");
     } catch (err) {
       console.error(err);
     }
   }, [userData]);
 
-  // user's question comments
-  const [userQuestionComments, setUserQuestionComments] = useState([]);
   const fetchUserQuestionComments = useCallback(async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_server_uri}/comments_q/${userData.nickname}`
+        `${process.env.REACT_APP_server_uri}/comments/q/${userData.nickname}`
       );
       setUserQuestionComments(response.data);
+      console.log("2222");
       console.log(response.data);
-      console.log(userData.nickname);
-      console.log("222");
     } catch (err) {
       console.error(err);
     }
   }, [userData]);
 
-  // user's board comments
-  const [userBoardComments, setUserBoardComments] = useState([]);
   const fetchUserBoardComments = useCallback(async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_server_uri}/comments_b/${userData.nickname}`
+        `${process.env.REACT_APP_server_uri}/comments/b/${userData.nickname}`
       );
       setUserBoardComments(response.data);
+      console.log("3333");
       console.log(response.data);
-      console.log(userData.nickname);
-      console.log("333");
     } catch (err) {
       console.error(err);
     }
