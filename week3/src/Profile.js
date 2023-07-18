@@ -50,18 +50,15 @@ const Profile = () => {
   console.log(userMBTI);
 
   return (
-    <div className="profile-container" style={{ height: "100vh" }}>
+    <div className="profile-container" style={{height: "100vh"}}>
       <div className="column">
-        <div
-          className="colorbox mbti white"
-          style={{ height: "10vw" }}
+        <div className = "colorbox mbti white"
+          style={{height: "10vw"}}
           onClick={goToMain}
         >
           {"<<"} 메인 페이지
         </div>
-        <div className="colorbox mbti blue" style={{ height: "10vw" }}>
-          내 프로필
-        </div>
+        <div className = "colorbox mbti blue" style={{height: "10vw"}}>내 프로필</div>
       </div>
 
       <div className="mbti not"></div>
@@ -75,6 +72,7 @@ const Profile = () => {
           width={"100%"}
         />
       </div>
+<<<<<<< HEAD
 
       <div className="colorbox mbti red">내 MBTI : {userMBTI}</div>
       <div className="colorbox mbti white" style={{ width: "40vw" }}>
@@ -86,6 +84,13 @@ const Profile = () => {
       <div className="colorbox mbti black" style={{ width: "30vw" }}>
         내가 쓴 댓글(게시판)
       </div>
+=======
+      
+      <div className="colorbox mbti red">내 MBTI : {userMBTI}</div>
+      <div className="mbti not"></div>
+      <div className = "colorbox mbti white" style={{width: "40vw"}}>내가 쓴 글</div>
+      <div className = "colorbox mbti black" style={{width: "40vw"}}>내가 쓴 댓글</div>
+>>>>>>> d3fe40bad7202864abc9fed6b2c09235d50d2c22
     </div>
   );
 };
