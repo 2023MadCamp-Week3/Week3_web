@@ -28,7 +28,7 @@ function PostList(props) {
         {currentPosts.map((post) => (
           <Post
             title={post.title}
-            content={post.content}
+            //content={post.content}
             time={post.time}
             onClick={() => props.openPostModal(post.id)}
           />

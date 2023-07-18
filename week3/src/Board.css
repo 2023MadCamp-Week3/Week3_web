@@ -1,3 +1,14 @@
 button {
   margin-bottom: 10;
 }
+
+.comment-input {
+  border: 1px solid black;
+}
+
+.comment-block {
+  border: 1px solid gray;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f0f0f0;
+}

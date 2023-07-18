@@ -164,7 +164,7 @@ const Board = () => {
             </p>
 
             {comments.map((comment) => (
-              <div key={comment.id}>
+              <div className="comment-block" key={comment.id}>
                 <p>{comment.content}</p>
                 <p>Commented by: {comment.user_id}</p>
                 <p>Posted at: {new Date(comment.post_time).toLocaleString()}</p>
@@ -172,6 +172,7 @@ const Board = () => {
             ))}
 
             <input
+              className="comment-input"
               type="text"
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}

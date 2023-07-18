@@ -269,7 +269,7 @@ app.get("/boards/:mbti", async (req, res) => {
   }
 });
 
-// 댓글 내용 가져오기
+// 게시판 댓글 내용 가져오기
 app.get("/comments/:boardId", async (req, res) => {
   try {
     const { boardId } = req.params;
@@ -284,7 +284,7 @@ app.get("/comments/:boardId", async (req, res) => {
   }
 });
 
-// 댓글 생성하기
+// 게시판 댓글 생성하기
 app.post("/comments", async (req, res) => {
   const now = new Date();
   const formattedDate = now.toISOString().slice(0, 19).replace("T", " ");
@@ -293,6 +293,38 @@ app.post("/comments", async (req, res) => {
     const [result] = await pool.query(
       "INSERT INTO comments_b (board_id, user_id, post_time, content) VALUES (?, ?, ?, ?)",
       [boardId, userId, formattedDate, content]
+    );
+    res.json(result);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// 질문 댓글 내용 가져오기
+app.get("/comments_q/:question_Id", async (req, res) => {
+  try {
+    const { questionId } = req.params;
+    const [comments] = await pool.query(
+      "SELECT * FROM comments_q WHERE question_id = ?",
+      [questionId]
+    );
+    res.json(comments);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// 질문 댓글 생성하기
+app.post("/comments_q", async (req, res) => {
+  const now = new Date();
+  const formattedDate = now.toISOString().slice(0, 19).replace("T", " ");
+  try {
+    const { questionId, userId, content } = req.body;
+    const [result] = await pool.query(
+      "INSERT INTO comments_q (question_id, user_id, post_time, content) VALUES (?, ?, ?, ?)",
+      [questionId, userId, formattedDate, content]
     );
     res.json(result);
   } catch (err) {
