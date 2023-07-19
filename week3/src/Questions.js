@@ -189,9 +189,9 @@ const Questions = () => {
   };
 
   const getRandomColor = () => {
-    const letters = ["gold", "tomato", "cornflowerblue", "black"]
-    return letters[Math.floor(Math.random() *4)];
-  }
+    const letters = ["gold", "tomato", "cornflowerblue", "black"];
+    return letters[Math.floor(Math.random() * 4)];
+  };
 
   useEffect(() => {
     // Generate random colors only when the component is mounted for the first time
@@ -215,10 +215,10 @@ const Questions = () => {
   };
 
   return (
-    <div className="container" style={{backgroundColor: "black"}}>
-
-      <div className="sline" style={{backgroundColor:"black"}}>
-        <div className="colorbox black"
+    <div className="container" style={{ backgroundColor: "black" }}>
+      <div className="sline" style={{ backgroundColor: "black" }}>
+        <div
+          className="colorbox black"
           style={{
             textAlign: "center",
             color: "white",
@@ -229,14 +229,10 @@ const Questions = () => {
         <div className="colorbox red" onClick={handleWriteShow}>
           글 쓰기
         </div>
-        <div
-          className="colorbox yellow"
-          onClick={goToMain}
-        >
+        <div className="colorbox yellow" onClick={goToMain}>
           메인 페이지로 이동
         </div>
       </div>
-      
 
       <div
         style={{
@@ -264,7 +260,7 @@ const Questions = () => {
           </div>
         ))}
       </div>
-      
+
       {selectedQuestion && (
         <Modal show={showModal} onHide={handleClose} size="lg">
           <Modal.Header closeButton>
@@ -319,27 +315,27 @@ const Questions = () => {
               </div>
               <div style={{ flex: "0 0 45%" }}>
                 <h4>I</h4>
-                <Bar yes={voteCounts.N.yes} no={voteCounts.N.no} />
+                <Bar yes={voteCounts.I.yes} no={voteCounts.I.no} />
               </div>
               <div style={{ flex: "0 0 45%", margin: "0 20px" }}>
                 <h4>N</h4>
-                <Bar yes={voteCounts.T.yes} no={voteCounts.T.no} />
+                <Bar yes={voteCounts.N.yes} no={voteCounts.N.no} />
               </div>
               <div style={{ flex: "0 0 45%" }}>
                 <h4>S</h4>
-                <Bar yes={voteCounts.P.yes} no={voteCounts.P.no} />
-              </div>
-              <div style={{ flex: "0 0 45%", margin: "0 20px" }}>
-                <h4>T</h4>
-                <Bar yes={voteCounts.I.yes} no={voteCounts.I.no} />
-              </div>
-              <div style={{ flex: "0 0 45%" }}>
-                <h4>F</h4>
                 <Bar yes={voteCounts.S.yes} no={voteCounts.S.no} />
               </div>
               <div style={{ flex: "0 0 45%", margin: "0 20px" }}>
-                <h4>P</h4>
+                <h4>T</h4>
+                <Bar yes={voteCounts.T.yes} no={voteCounts.T.no} />
+              </div>
+              <div style={{ flex: "0 0 45%" }}>
+                <h4>F</h4>
                 <Bar yes={voteCounts.F.yes} no={voteCounts.F.no} />
+              </div>
+              <div style={{ flex: "0 0 45%", margin: "0 20px" }}>
+                <h4>P</h4>
+                <Bar yes={voteCounts.P.yes} no={voteCounts.P.no} />
               </div>
               <div style={{ flex: "0 0 45%" }}>
                 <h4>J</h4>

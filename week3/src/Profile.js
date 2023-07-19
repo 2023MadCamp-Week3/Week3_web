@@ -14,6 +14,7 @@ const Profile = () => {
   const [modalContent, setModalContent] = useState(null);
   const navigate = useNavigate();
   const { userData } = useContext(UserDataContext);
+
   const goToMain = () => {
     navigate("/Mainpage");
   };
@@ -21,12 +22,11 @@ const Profile = () => {
   const handlePostClick = async (postId) => {
     try {
       const postRes = await axios.get(
-        `${process.env.REACT_APP_server_uri}/boardsget/${postId}`
+        `${process.env.REACT_APP_server_uri}/boardsget2/${postId}`
       );
       const commentsRes = await axios.get(
         `${process.env.REACT_APP_server_uri}/commentsget/${postId}`
       );
-      console.log("sex");
       console.log(postId);
       const modalData = {
         post: postRes.data,
