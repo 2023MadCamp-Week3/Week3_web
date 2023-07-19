@@ -7,3 +7,5 @@
 MBTI 초짜부터 과몰입러까지, "너 T야?"는 여러분 모두를 환영합니다.
 
 ## 1. Login
+
+<img src="board1.png" width="300" height="200" alt="login">
