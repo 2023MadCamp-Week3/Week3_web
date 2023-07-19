@@ -23,7 +23,9 @@ MBTI 초짜부터 과몰입러까지, "너 T야?"는 여러분 모두를 환영�
 <img src="question1.png" width="400" height="250" alt="q1"> <img src="question2.png" width="400" height="250" alt="q1">
 <img src="question3.png" width="400" height="250" alt="q1"> <img src="question4.png" width="400" height="250" alt="q1">
 
-- dma
+- 누구나 질문을 업로드하고 투표할 수 있습니다.
+- 투표 결과는 MBTI의 총 여덟 알파벳 별로 두 선택지의 비율이 보여집니다.
+- 
 
 ## 4. Board
 
