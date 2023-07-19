@@ -10,10 +10,20 @@ MBTI 초짜부터 과몰입러까지, "너 T야?"는 여러분 모두를 환영�
 
 <img src="login.png" width="400" height="250" alt="login">
 
+- 로그인 페이지입니다. 사각형의 버튼을 클릭해서 로그인하거나 회원가입을 할 수 있습니다.
+
 ## 2. Signin
 
+<img src="signin.png" width="400" height="250" alt="signin"> 
+
+- 회원가입 페이지입니다. 가입시 자신의 MBTI를 버튼을 눌러 입력할 수 있습니다.
 
 ## 3. Questions
+
+<img src="question1.png" width="400" height="250" alt="q1"> <img src="question2.png" width="400" height="250" alt="q1">
+<img src="question3.png" width="400" height="250" alt="q1"> <img src="question4.png" width="400" height="250" alt="q1">
+
+- dma
 
 ## 4. Board
 
