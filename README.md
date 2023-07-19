@@ -25,16 +25,22 @@ MBTI 초짜부터 과몰입러까지, "너 T야?"는 여러분 모두를 환영�
 
 - 누구나 질문을 업로드하고 투표할 수 있습니다.
 - 투표 결과는 MBTI의 총 여덟 알파벳 별로 두 선택지의 비율이 보여집니다.
-- 
+- 각 질문 게시글에 대해서 댓글을 작성하며 소통할 수 있습니다.
 
 ## 4. Board
 
 <img src="board1.png" width="400" height="250" alt="b1"> <img src="board3.png" width="400" height="250" alt="b1">
 <img src="board3.png" width="400" height="250" alt="b1">
 
+- 각 MBTI별로 MBTI에 대한 주제를 이야기하는 게시판이 있습니다.
+
 ## 5. Test
 
 <img src="test1.png" width="400" height="250" alt="t1"> <img src="test2.png" width="400" height="250" alt="t1">
+
+- 공식 MBTI 설문이 아닌, 저희의 약식 MBTI 테스트가 있습니다.
+- 딱딱한 질문만이 아니라 재미있게 답할 수 있는 질문도 있답니다.
+- 
 
 ## 6. Profile
 
