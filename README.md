@@ -27,7 +27,13 @@ MBTI 초짜부터 과몰입러까지, "너 T야?"는 여러분 모두를 환영�
 
 ## 4. Board
 
+<img src="board1.png" width="400" height="250" alt="b1"> <img src="board3.png" width="400" height="250" alt="b1">
+<img src="board3.png" width="400" height="250" alt="b1">
+
 ## 5. Test
+
+<img src="test1.png" width="400" height="250" alt="t1"> <img src="test2.png" width="400" height="250" alt="t1">
 
 ## 6. Profile
 
+<img src="profile1.png" width="400" height="250" alt="f1"> <img src="profile2.png" width="400" height="250" alt="f1">
