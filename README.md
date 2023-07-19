@@ -8,4 +8,4 @@ MBTI 초짜부터 과몰입러까지, "너 T야?"는 여러분 모두를 환영�
 
 ## 1. Login
 
-<img src="board1.png" width="300" height="200" alt="login">
+<img src="login.png" width="400" height="250" alt="login">
