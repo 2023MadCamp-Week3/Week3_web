@@ -62,62 +62,92 @@ const Signup = () => {
   };
 
   return (
-    <div className="container">
-      <h1>회원 가입</h1>
-      <form onSubmit={goBacktoLogin}>
-        <div className="input-group">
-          <label htmlFor="name">이름:</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={handleNameChange}
-          />
-        </div>
-        <div className="input-group">
-          <label htmlFor="nickname">별명:</label>
-          <input
-            type="text"
-            id="nickname"
-            value={nickname}
-            onChange={handleNicknameChange}
-          />
-        </div>
-        <div className="input-group">
-          <label htmlFor="email">이메일:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={handleEmailChange}
-          />
-        </div>
-        <div className="input-group">
-          <label htmlFor="password">비밀번호:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-        </div>
-        {mbtiChoices.map((mbtiChoice) => (
-          <div className="mbti-choice" key={mbtiChoice.key}>
-            {mbtiChoice.options.map((option) => (
-              <button
-                className={`mbti-option ${
-                  mbti[mbtiChoice.key] === option ? "selected" : ""
-                }`}
-                key={option}
-                type="button"
-                onClick={() => handleMbtiChange(mbtiChoice.key, option)}
-              >
-                {option}
-              </button>
-            ))}
+    <div style={{height: "100vh", backgroundColor:"black"}}>
+      <div className="stextbox yellow" style={{height: "5vw"}}>회원 가입</div>
+
+
+      <form onSubmit={goBacktoLogin} style={{display: "flex", flexDirection: "row",}}>
+        <div style={{width: "10vw"}}></div>
+        <div className="column" style={{width: "40%"}}>
+          <div className="input-group">
+            <div for="name" className="inputsection white">
+              <div className="stextbox blue">이름:</div>
+              <input
+                className="inputbox"
+                type="text"
+                id="name"
+                value={name}
+                onChange={handleNameChange}
+              />
+            </div>
           </div>
-        ))}
-        <button type="submit">회원 가입 완료</button>
+          <div className="input-group">
+            <div for="nickname" className="inputsection white">
+            <div className="stextbox yellow">별명:</div>
+              <input
+                className="inputbox"
+                type="text"
+                id="nickname"
+                value={nickname}
+                onChange={handleNicknameChange}
+              />
+            </div>
+          </div>
+          <div className="input-group">
+            <div for="email" className="inputsection white">
+            <div className="stextbox white">이메일:</div>
+              <input
+                className="inputbox"
+                type="email"
+                id="email"
+                value={email}
+                onChange={handleEmailChange}
+              />
+            </div>
+          </div>
+
+          <div className="input-group">
+            <div for="password" className="inputsection white">
+            <div className="stextbox red">비밀번호:</div>
+              <input
+                className="inputbox"
+                type="password"
+                id="password"
+                value={email}
+                onChange={handlePasswordChange}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="stextbox"></div>
+
+        <div className="column" style={{width: "40%"}}>
+          <div className="stextbox yellow">
+            MBTI를 선택해주세요.
+          </div>
+          {mbtiChoices.map((mbtiChoice) => (
+            <div className="mbti-choice" key={mbtiChoice.key}>
+              {mbtiChoice.options.map((option) => (
+                <button
+                  className={`mbti-option ${
+                    mbti[mbtiChoice.key] === option ? "selected" : ""
+                  }`}
+                  key={option}
+                  type="button"
+                  onClick={() => handleMbtiChange(mbtiChoice.key, option)}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          ))}
+
+          <button className="stextbox blue" type="submit" style={{color: "black"}}>회원 가입 완료</button>
+          
+        </div>
+        
+        
       </form>
     </div>
   );
