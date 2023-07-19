@@ -363,3 +363,49 @@ app.post("/boards", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+// 사용자의 게시글을 가져옵니다.
+app.get("/boardsget/:nickname", async (req, res) => {
+  const nickname = req.params.nickname;
+  try {
+    const [userPosts] = await pool.query(
+      "SELECT * FROM boards WHERE user_id = ?",
+      [nickname]
+    );
+    res.json(userPosts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// 게시물 가져오기
+app.get("/boardsget2/:postId", async (req, res) => {
+  try {
+    const { postId } = req.params;
+
+    const [post] = await pool.query(`SELECT * FROM boards WHERE id = ?`, [
+      postId,
+    ]);
+
+    res.json(post[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// 댓글 가져오기
+app.get("/commentsget/:board_id", async (req, res) => {
+  const board_id = req.params.board_id;
+  try {
+    const [comments] = await pool.query(
+      "SELECT * FROM comments_b WHERE board_id = ?",
+      [board_id]
+    );
+    res.json(comments);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
