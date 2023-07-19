@@ -1,0 +1,17 @@
+.tcontainer {
+    font-family: 'SUITE-Black', sans-serif;
+}
+
+.testpage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url("https://creativeeducator.tech4learning.com/2021/lessons/images/mondrian-math_main.jpg");
+    height: 100vh;
+}
+
+.blur {
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+}

@@ -201,6 +201,7 @@ const Questions = () => {
 
   const vote = async (voteValue) => {
     try {
+      console.log(voteValue, voteValue === "1번" ? 1 : 2);
       await axios.post(`${process.env.REACT_APP_server_uri}/vote`, {
         question_id: selectedQuestion.id,
         user_id: userId,

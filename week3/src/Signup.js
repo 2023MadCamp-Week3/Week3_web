@@ -73,6 +73,7 @@ const Signup = () => {
             <div for="name" className="inputsection white">
               <div className="stextbox blue">이름:</div>
               <input
+                style={{width: "100%"}}
                 className="inputbox"
                 type="text"
                 id="name"
@@ -85,6 +86,7 @@ const Signup = () => {
             <div for="nickname" className="inputsection white">
             <div className="stextbox yellow">별명:</div>
               <input
+                style={{width: "100%"}}
                 className="inputbox"
                 type="text"
                 id="nickname"
@@ -97,6 +99,7 @@ const Signup = () => {
             <div for="email" className="inputsection white">
             <div className="stextbox white">이메일:</div>
               <input
+                style={{width: "100%"}}
                 className="inputbox"
                 type="email"
                 id="email"
@@ -110,10 +113,11 @@ const Signup = () => {
             <div for="password" className="inputsection white">
             <div className="stextbox red">비밀번호:</div>
               <input
+                style={{width: "100%"}}
                 className="inputbox"
                 type="password"
                 id="password"
-                value={email}
+                value={password}
                 onChange={handlePasswordChange}
               />
             </div>

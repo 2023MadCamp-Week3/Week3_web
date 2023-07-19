@@ -189,55 +189,68 @@ const Test = () => {
   }, [fetchUserMBTI]);
 
   return (
-    <div className="container">
-      <button
-        style={{ position: "absolute", top: 50, right: 50, borderRadius: 15 }}
-        onClick={goToMain}
-      >
-        메인 페이지로 이동
-      </button>
-      <h1 style={{ textAlign: "center" }}>약식 MBTI 검사</h1>
-      <div
-        style={{
-          overflow: "auto",
-          maxHeight: "80vh",
-          textAlign: "center",
-          overflowY: "auto",
-        }}
-      >
-        {questions.map((question, index) => (
-          <div key={index}>
-            <h3>{question}</h3>
-            {choices.map((choice, choiceIndex) => (
-              <button
-                key={choiceIndex}
-                onClick={() => handleButtonClick(index, choice)}
-                style={{
-                  backgroundColor:
-                    answers[index] === choice ? "skyblue" : "#A4A4A4",
-                  marginRight: 10,
-                  marginBottom: 15,
-                  borderRadius: 10,
-                }}
-              >
-                {choice}
-              </button>
-            ))}
-          </div>
-        ))}
+    <div className="testpage" >
+      <div className="tcontainer" style={{backgroundColor:"gold", margin: '50px auto', padding: '20px', maxWidth: '800px', borderRadius: '0px' }}>
+        <button
+          style={{ position: "absolute", top: 10, right: 10, borderRadius: 0, padding: '10px' }}
+          onClick={goToMain}
+        >
+          메인 페이지로 이동
+        </button>
+        <h1 style={{ textAlign: "center", margin: '20px 0' }}>약식 MBTI 검사</h1>
+        <div
+          style={{
+            overflow: "auto",
+            maxHeight: "60vh",
+          }}
+        >
+          {questions.map((question, index) => (
+            <div key={index} style={{ margin: '10px 0', padding: '10px', border: '1px solid #ddd', borderRadius: '0px', background: '#f9f9f9' }}>
+              <h3>{(index+1)+". "} {question}</h3>
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                {choices.map((choice, choiceIndex) => (
+                  <button
+                    key={choiceIndex}
+                    onClick={() => handleButtonClick(index, choice)}
+                    style={{
+                      backgroundColor: answers[index] === choice ? "tomato" : "#A4A4A4",
+                      color: '#fff',
+                      padding: '10px 20px',
+                      margin: '0 5px',
+                      borderRadius: '0px',
+                      cursor: 'pointer',
+                      outline: 'none',
+                      border: 'none',
+                    }}
+                  >
+                    {choice}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        <button
+          onClick={handleSubmit}
+          style={{
+            marginTop: 10,
+            borderRadius: 0,
+            backgroundColor: hasSubmitted ? "darkgrey" : "cornflowerblue",
+            color: '#fff',
+            padding: '10px 20px',
+            cursor: 'pointer',
+            outline: 'none',
+            border: 'none',
+            display: 'block',
+            margin: '0 auto',
+          }}
+          disabled={hasSubmitted}
+        >
+          답변 완료
+        </button>
       </div>
-      <button
-        onClick={handleSubmit}
-        style={{
-          marginTop: 10,
-          borderRadius: 10,
-          backgroundColor: hasSubmitted ? "darkgrey" : "blue",
-        }}
-        disabled={hasSubmitted}
-      >
-        답변 완료
-      </button>
     </div>
+    
   );
 };
 
