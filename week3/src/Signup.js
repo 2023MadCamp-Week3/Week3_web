@@ -62,13 +62,17 @@ const Signup = () => {
   };
 
   return (
-    <div style={{height: "100vh", backgroundColor:"black"}}>
-      <div className="stextbox yellow" style={{height: "5vw"}}>회원 가입</div>
+    <div style={{ height: "100vh", backgroundColor: "black" }}>
+      <div className="stextbox yellow" style={{ height: "5vw" }}>
+        회원 가입
+      </div>
 
-
-      <form onSubmit={goBacktoLogin} style={{display: "flex", flexDirection: "row",}}>
-        <div style={{width: "10vw"}}></div>
-        <div className="column" style={{width: "40%"}}>
+      <form
+        onSubmit={goBacktoLogin}
+        style={{ display: "flex", flexDirection: "row" }}
+      >
+        <div style={{ width: "10vw" }}></div>
+        <div className="column" style={{ width: "40%" }}>
           <div className="input-group">
             <div for="name" className="inputsection white">
               <div className="stextbox blue">이름:</div>
@@ -83,7 +87,7 @@ const Signup = () => {
           </div>
           <div className="input-group">
             <div for="nickname" className="inputsection white">
-            <div className="stextbox yellow">별명:</div>
+              <div className="stextbox yellow">별명:</div>
               <input
                 className="inputbox"
                 type="text"
@@ -95,7 +99,7 @@ const Signup = () => {
           </div>
           <div className="input-group">
             <div for="email" className="inputsection white">
-            <div className="stextbox white">이메일:</div>
+              <div className="stextbox white">이메일:</div>
               <input
                 className="inputbox"
                 type="email"
@@ -108,12 +112,12 @@ const Signup = () => {
 
           <div className="input-group">
             <div for="password" className="inputsection white">
-            <div className="stextbox red">비밀번호:</div>
+              <div className="stextbox red">비밀번호:</div>
               <input
                 className="inputbox"
                 type="password"
                 id="password"
-                value={email}
+                value={password}
                 onChange={handlePasswordChange}
               />
             </div>
@@ -122,10 +126,8 @@ const Signup = () => {
 
         <div className="stextbox"></div>
 
-        <div className="column" style={{width: "40%"}}>
-          <div className="stextbox yellow">
-            MBTI를 선택해주세요.
-          </div>
+        <div className="column" style={{ width: "40%" }}>
+          <div className="stextbox yellow">MBTI를 선택해주세요.</div>
           {mbtiChoices.map((mbtiChoice) => (
             <div className="mbti-choice" key={mbtiChoice.key}>
               {mbtiChoice.options.map((option) => (
@@ -143,11 +145,14 @@ const Signup = () => {
             </div>
           ))}
 
-          <button className="stextbox blue" type="submit" style={{color: "black"}}>회원 가입 완료</button>
-          
+          <button
+            className="stextbox blue"
+            type="submit"
+            style={{ color: "black" }}
+          >
+            회원 가입 완료
+          </button>
         </div>
-        
-        
       </form>
     </div>
   );

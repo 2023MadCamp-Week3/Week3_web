@@ -128,6 +128,8 @@ const Questions = () => {
       `${process.env.REACT_APP_server_uri}/questions/${selectedQuestion.id}/votes`
     );
     setVoteCounts(response.data);
+    console.log(response.data);
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaa");
   };
 
   useEffect(() => {
@@ -154,7 +156,9 @@ const Questions = () => {
     const total = yes + no;
     const yesWidth = total > 0 ? (yes / total) * 100 : 0;
     const noWidth = total > 0 ? (no / total) * 100 : 0;
-
+    console.log(yes);
+    console.log(no);
+    console.log("asdasasd");
     return (
       <div style={{ margin: "10px 0" }}>
         <div
@@ -169,10 +173,11 @@ const Questions = () => {
           <div
             style={{
               width: `${yesWidth}%`,
-              backgroundColor: "#01DF74",
+              backgroundColor: "green",
               height: "100%",
             }}
           />
+
           <div
             style={{
               width: `${noWidth}%`,
@@ -200,6 +205,7 @@ const Questions = () => {
   }, [questions]);
 
   const vote = async (voteValue) => {
+    console.log(voteValue);
     try {
       await axios.post(`${process.env.REACT_APP_server_uri}/vote`, {
         question_id: selectedQuestion.id,

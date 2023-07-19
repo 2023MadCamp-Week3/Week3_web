@@ -32,7 +32,9 @@ p {
 
 .bt1 {
   background-color: #d9ffd9 !important;
+  color: black !important;
   width: 500px !important;
+  font-weight: bold !important;
   margin-bottom: 10px;
 }
 
@@ -42,7 +44,9 @@ p {
 
 .bt2 {
   background-color: #ffd4db !important;
+  color: black !important;
   width: 500px !important;
+  font-weight: bold !important;
   margin-bottom: 10px;
 }
 
