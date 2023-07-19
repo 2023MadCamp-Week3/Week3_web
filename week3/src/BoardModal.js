@@ -32,7 +32,7 @@ function BoardModal(props) {
 
       {newPostModalOpen && (
         <div className="new-post-modal">
-          <h2>새 글 작성</h2>
+          <h2 style={{color: "white"}}>새 글 작성</h2>
           <form onSubmit={handleNewPostSubmit}>
             <label>
               제목:
