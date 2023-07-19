@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect, React } from "react";
+import "./Board.css";
 import "./Mainpage.css";
 import { UserDataContext } from "./UserDataContext";
 import { useNavigate } from "react-router-dom";
@@ -171,13 +172,16 @@ const Board = () => {
               Posted at: {new Date(selectedPost.post_time).toLocaleString()}
             </p>
 
-            {comments.map((comment) => (
-              <div className="comment-block" key={comment.id}>
-                <p>{comment.content}</p>
-                <p>Commented by: {comment.user_id}</p>
-                <p>Posted at: {new Date(comment.post_time).toLocaleString()}</p>
-              </div>
-            ))}
+            <div className="comment-section">
+              {comments.map((comment) => (
+                <div className="comment-block" key={comment.id}>
+                  <p>{comment.content}</p>
+                  <p>Commented by: {comment.user_id}</p>
+                  <p>Posted at: {new Date(comment.post_time).toLocaleString()}</p>
+                </div>
+              ))}
+            </div>
+            
 
             <input
               className="comment-input"

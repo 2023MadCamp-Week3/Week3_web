@@ -1,26 +1,44 @@
 .mbti-choice {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  justify-content: flex-start;
 }
 
 .mbti-option {
-  flex: 1;
-  margin: 0 5px;
+  width: 10vw;
+  height: 5vw;
   padding: 10px;
   border: none;
-  border-radius: 5px;
-  background-color: #c0c0c0;
+  background-color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  color: white;
+  color: black;
   font-weight: bold;
 }
 
 .mbti-option:hover {
-  background-color: #add8e6;
+  background-color: lightcoral;
 }
 
 .mbti-option.selected {
-  background-color: #87cefa;
+  background-color: tomato;
+}
+
+.inputbox {
+  margin: 10px;
+  background-color: transparent;
+}
+
+.stextbox {
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-align: left;
+  padding: 0.4em;
+  width: 10vw;
+  height: 10vw;
+}
+
+.inputsection {
+  display: flex;
+  width: 50vw;
+  justify-content: stretch;
 }
