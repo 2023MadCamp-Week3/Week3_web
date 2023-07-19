@@ -144,7 +144,7 @@ app.get("/questions/:questionId/votes", async (req, res) => {
     votes.forEach((vote) => {
       const traits = [vote.m1, vote.m2, vote.m3, vote.m4];
       traits.forEach((trait) => {
-        if (vote.vote === 1) voteCounts[trait].yes += 1;
+        if (vote.vote == 1) voteCounts[trait].yes += 1;
         else voteCounts[trait].no += 1;
       });
     });
